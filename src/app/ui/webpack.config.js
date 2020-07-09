@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { resolve } = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -8,7 +9,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ASSET_PATH = process.env.ASSET_PATH || "/";
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/index.ts",
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -27,6 +28,7 @@ module.exports = {
     ),
   ],
   resolve: {
+    extensions: [".tsx", ".ts", ".js"],
     alias: {
       "@": resolve(__dirname, "./src"),
       "~": resolve(__dirname),
@@ -47,6 +49,11 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
       {
         enforce: "pre",
         test: /\.js$/,
