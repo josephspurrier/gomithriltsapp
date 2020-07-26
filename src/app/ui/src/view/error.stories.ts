@@ -1,8 +1,7 @@
-import m from "mithril"; // eslint-disable-line no-unused-vars
+import m from "mithril";
 import { withKnobs } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
 import ErrorPage from "@/view/error";
-import "~/style/main.scss";
 
 export default {
   title: "View/Error",
@@ -10,6 +9,6 @@ export default {
   decorators: [withKnobs, withA11y],
 };
 
-export const error = () => ({
-  view: () => <ErrorPage />,
+export const error = (): m.Component => ({
+  view: () => m(ErrorPage),
 });

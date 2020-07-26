@@ -1,4 +1,4 @@
-import m from "mithril"; // eslint-disable-line no-unused-vars
+import m from "mithril";
 import {
   withKnobs,
   text,
@@ -9,7 +9,6 @@ import {
 } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
 import Flash from "@/component/flash";
-import "~/style/main.scss";
 
 export default {
   title: "Component/Flash",
@@ -17,7 +16,7 @@ export default {
   decorators: [withKnobs, withA11y],
 };
 
-export const success = () => ({
+export const success = (): m.Component => ({
   oninit: () => {
     Flash.timeout = -1;
     Flash.success(text("Text", "This is a success message."));
@@ -25,10 +24,10 @@ export const success = () => ({
   onremove: () => {
     Flash.clear();
   },
-  view: () => <Flash />,
+  view: () => m(Flash),
 });
 
-export const failed = () => ({
+export const failed = (): m.Component => ({
   oninit: () => {
     Flash.timeout = -1;
     Flash.failed(text("Text", "This is a failed message."));
@@ -36,10 +35,10 @@ export const failed = () => ({
   onremove: () => {
     Flash.clear();
   },
-  view: () => <Flash />,
+  view: () => m(Flash),
 });
 
-export const warning = () => ({
+export const warning = (): m.Component => ({
   oninit: () => {
     Flash.timeout = -1;
     Flash.warning(text("Text", "This is a warning message."));
@@ -47,10 +46,10 @@ export const warning = () => ({
   onremove: () => {
     Flash.clear();
   },
-  view: () => <Flash />,
+  view: () => m(Flash),
 });
 
-export const primary = () => ({
+export const primary = (): m.Component => ({
   oninit: () => {
     Flash.timeout = -1;
     Flash.primary(text("Text", "This is a primary message."));
@@ -58,10 +57,10 @@ export const primary = () => ({
   onremove: () => {
     Flash.clear();
   },
-  view: () => <Flash />,
+  view: () => m(Flash),
 });
 
-export const link = () => ({
+export const link = (): m.Component => ({
   oninit: () => {
     Flash.timeout = -1;
     Flash.link(text("Text", "This is a link message."));
@@ -69,10 +68,10 @@ export const link = () => ({
   onremove: () => {
     Flash.clear();
   },
-  view: () => <Flash />,
+  view: () => m(Flash),
 });
 
-export const info = () => ({
+export const info = (): m.Component => ({
   oninit: () => {
     Flash.timeout = -1;
     Flash.info(text("Text", "This is a info message."));
@@ -80,10 +79,10 @@ export const info = () => ({
   onremove: () => {
     Flash.clear();
   },
-  view: () => <Flash />,
+  view: () => m(Flash),
 });
 
-export const dark = () => ({
+export const dark = (): m.Component => ({
   oninit: () => {
     Flash.timeout = -1;
     Flash.dark(text("Text", "This is a dark message."));
@@ -91,14 +90,14 @@ export const dark = () => ({
   onremove: () => {
     Flash.clear();
   },
-  view: () => <Flash />,
+  view: () => m(Flash),
 });
 
-export const Action = () => ({
+export const Action = (): m.Component => ({
   oninit: () => {
-    Flash.timeout = number("Timeout (milliseconds)", "2000");
+    Flash.timeout = number("Timeout (milliseconds)", 2000);
     Flash.prepend = boolean("Prepend", false);
-    let s = select(
+    const s = select(
       "Type",
       {
         success: "success",
@@ -112,10 +111,12 @@ export const Action = () => ({
       "success"
     );
     Flash[s](text("Text", "This is a test message."));
-    button("Show Message", () => {});
+    button("Show Message", () => {
+      console.log("Show message");
+    });
   },
   onremove: () => {
     Flash.clear();
   },
-  view: () => <Flash />,
+  view: () => m(Flash),
 });

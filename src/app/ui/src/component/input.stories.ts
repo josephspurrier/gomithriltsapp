@@ -1,8 +1,7 @@
-import m from "mithril"; // eslint-disable-line no-unused-vars
+import m from "mithril";
 import { withKnobs, text, select } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
 import Input from "./input";
-import "~/style/main.scss";
 
 export default {
   title: "Component/Input",
@@ -10,7 +9,11 @@ export default {
   decorators: [withKnobs, withA11y],
 };
 
-export const input = () => ({
+interface State {
+  type: string;
+}
+
+export const input = (): m.Component<null, State> => ({
   oninit: (vnode) => {
     vnode.state.type = select(
       "Type",
@@ -32,11 +35,14 @@ export const input = () => ({
       "text"
     );
   },
-  view: (vnode) => (
-    <Input
-      label="First Name"
-      value={text("Value", "John")}
-      type={vnode.state.type}
-    />
-  ),
+  view: (vnode) =>
+    m(Input, {
+      name: "first_name",
+      label: "First Name",
+      value: text("Value", "John"),
+      type: vnode.state.type,
+      oninput: function (): void {
+        console.log("changed");
+      },
+    }),
 });

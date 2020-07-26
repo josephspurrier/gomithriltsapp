@@ -1,4 +1,4 @@
-import m from "mithril"; // eslint-disable-line no-unused-vars
+import m from "mithril";
 import { withKnobs } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
 import HomePage from "@/view/home";
@@ -10,6 +10,6 @@ export default {
   decorators: [withKnobs, withA11y],
 };
 
-export const home = () => ({
-  view: () => <HomePage />,
+export const home = (): m.Component => ({
+  view: () => m(HomePage),
 });
