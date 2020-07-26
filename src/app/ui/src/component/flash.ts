@@ -20,6 +20,13 @@ interface flashMessage {
   style: messageType;
 }
 
+function randId(): string {
+  const min = 10000;
+  const max = 99999999999999;
+  const randomNum = Math.random() * (max - min) + min;
+  return Math.floor(randomNum).toString();
+}
+
 const View = {
   list: [] as flashMessage[],
   timeout: 4000, // milliseconds
@@ -81,22 +88,32 @@ const View = {
   clear: (): void => {
     View.list = [];
   },
-  view: (): m.Vnode => {
-    return m("div", "");
-    // <div style="position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 100; margin: 0;">
-    //   {View.list.map((i) => (
-    //     <div key={i} class={`notification ${i.style}`}>
-    //       {i.message}
-    //       <button
-    //         class="delete"
-    //         onclick={() => {
-    //           View.removeFlash(i);
-    //         }}
-    //       ></button>
-    //     </div>
-    //   ))}
-    // </div>
-  },
+  view: (): m.Vnode =>
+    m(
+      "div",
+      {
+        style: {
+          position: "fixed",
+          bottom: "1.5rem",
+          right: "1.5rem",
+          "z-index": "100",
+          margin: "0",
+        },
+      },
+      [
+        View.list.map((i) =>
+          m("div", { class: `notification ${i.style}`, key: randId() }, [
+            i.message,
+            m("button", {
+              class: "delete",
+              onclick: function () {
+                View.removeFlash(i);
+              },
+            }),
+          ])
+        ),
+      ]
+    ),
 };
 
 export default View;

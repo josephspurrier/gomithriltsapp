@@ -1,6 +1,6 @@
 import m from "mithril";
 import Menu from "@/component/menu";
-//import Flash from "@/component/flash";
+import Flash from "@/component/flash";
 
 const View = (): m.Component => {
   return {
@@ -8,7 +8,7 @@ const View = (): m.Component => {
       return m("main.layout", [
         m(Menu),
         m("section", vnode.children),
-        //m(Flash),
+        m(Flash),
       ]);
     },
   };

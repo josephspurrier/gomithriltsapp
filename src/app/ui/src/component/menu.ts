@@ -66,8 +66,7 @@ const View = (): m.Component => {
                       "a",
                       {
                         class: "navbar-item",
-                        href:
-                          "{`https://petstore.swagger.io/?url=${location.origin}/static/swagger.json`}",
+                        href: `https://petstore.swagger.io/?url=${location.origin}/static/swagger.json`,
                       },
                       " Swagger "
                     ),

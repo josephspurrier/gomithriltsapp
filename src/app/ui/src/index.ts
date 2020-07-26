@@ -1,6 +1,6 @@
 import m from "mithril"; // eslint-disable-line no-unused-vars
 import AboutPage from "@/view/about";
-// import LoginPage from "@/view/login";
+import LoginPage from "@/view/login";
 // import RegisterPage from "@/view/register";
 import HomePage from "@/view/home";
 // import NotepadPage from "@/view/notepad";
@@ -25,12 +25,12 @@ m.route(document.body, "/", {
   //     else m.route.set("/login");
   //   },
   // },
-  // "/login": {
-  //   onmatch: () => {
-  //     if (CookieStore.isLoggedIn()) m.route.set("/");
-  //     else return Login;
-  //   },
-  // },
+  "/login": {
+    onmatch: () => {
+      if (CookieStore.isLoggedIn()) m.route.set("/");
+      else return Login;
+    },
+  },
   // "/register": {
   //   onmatch: () => {
   //     if (CookieStore.isLoggedIn()) m.route.set("/");
@@ -61,11 +61,11 @@ const Index = {
 //   },
 // };
 
-// const Login = {
-//   view: () => {
-//     return m(LayoutMain, m(LoginPage));
-//   },
-// };
+const Login = {
+  view: () => {
+    return m(LayoutMain, m(LoginPage));
+  },
+};
 
 // const Register = {
 //   view: () => {

@@ -1,9 +1,24 @@
-import m from "mithril"; // eslint-disable-line no-unused-vars
+import m from "mithril";
 import Submit from "@/module/submit";
 import Flash from "@/component/flash";
 import CookieStore from "@/module/cookiestore";
 
-var UserLogin = (e, user) => {
+interface User {
+  email: string;
+  password: string;
+}
+
+interface loginResponse {
+  status: string;
+  token: string;
+}
+
+interface errorResponse {
+  status: string;
+  message: string;
+}
+
+const UserLogin = (e: InputEvent, user: User): Promise<void> => {
   Submit.start(e);
 
   return m
@@ -12,7 +27,8 @@ var UserLogin = (e, user) => {
       url: "/api/v1/login",
       body: user,
     })
-    .then((data) => {
+    .then((data: loginResponse) => {
+      console.log(data);
       Submit.finish();
 
       const auth = {
@@ -24,10 +40,10 @@ var UserLogin = (e, user) => {
       Flash.success("Login successful.");
       m.route.set("/");
     })
-    .catch((err) => {
+    .catch((err: XMLHttpRequest) => {
       Submit.finish();
-      Flash.warning(err.response.message);
-      throw err;
+      Flash.warning((err.response as errorResponse).message);
+      //throw err;
     });
 };
 
