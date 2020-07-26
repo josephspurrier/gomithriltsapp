@@ -6,7 +6,7 @@
 
 [![Swagger Validator](https://online.swagger.io/validator?url=https://raw.githubusercontent.com/josephspurrier/gomithriltsapp/master/src/app/ui/static/swagger.json)](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/josephspurrier/gomithriltsapp/master/src/app/ui/static/swagger.json)
 
-This is a sample notepad application that uses Mithril with TypeScript on the front-end (UI) and Go on the back-end (API). This project is designed to show good development and CI/CD practices as well as integrations between modern development tools.
+This is a sample notepad application that uses Mithril with TypeScript (and HyperScript) on the front-end (UI) and Go on the back-end (API). It does also support JSX (.tsx file extension) if you want to use it. This project is designed to show good development and CI/CD practices as well as integrations between modern development tools.
 
 This project uses a [Makefile](Makefile) to centralize frequently used commands. The code coverage badge above is only for the back-end API - not the front-end.
 
