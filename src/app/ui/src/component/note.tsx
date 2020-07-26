@@ -5,7 +5,7 @@ import NoteStore from "@/store/notestore";
 interface defaultAttrs {
   id: string;
   message?: string;
-  oninput: (e: string) => void;
+  oninput: (e: { target: HTMLInputElement }) => void;
 }
 
 interface defaultState {

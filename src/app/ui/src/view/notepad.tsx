@@ -1,8 +1,13 @@
-import m from "mithril"; // eslint-disable-line no-unused-vars
+import m from "mithril";
 import NoteStore from "@/store/notestore";
 import Note from "@/component/note";
 
-var Page = () => {
+interface Notes {
+  id: string;
+  message: string;
+}
+
+const Page: m.ClosureComponent = () => {
   NoteStore.load();
 
   return {
@@ -19,13 +24,13 @@ var Page = () => {
                   class="input"
                   name="note-add"
                   data-cy="note-text"
-                  onkeypress={(e) => {
+                  onkeypress={(e: KeyboardEvent) => {
                     if (e.key !== "Enter") {
                       return;
                     }
                     NoteStore.submit();
                   }}
-                  oninput={(e) => {
+                  oninput={(e: { target: HTMLInputElement }) => {
                     NoteStore.current.message = e.target.value;
                   }}
                   value={NoteStore.current.message}
@@ -48,16 +53,16 @@ var Page = () => {
           </div>
           <div>
             <ul id="listTodo">
-              {NoteStore.list.map((note) => (
-                <Note
-                  key={note.id}
-                  id={note.id}
-                  message={note.message}
-                  oninput={(e) => {
+              {NoteStore.list.map((note: Notes) =>
+                m(Note, {
+                  key: note.id,
+                  id: note.id,
+                  message: note.message,
+                  oninput: function (e: { target: HTMLInputElement }) {
                     note.message = e.target.value;
-                  }}
-                />
-              ))}
+                  },
+                })
+              )}
             </ul>
           </div>
         </div>

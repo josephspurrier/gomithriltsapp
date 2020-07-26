@@ -1,9 +1,9 @@
-import m from "mithril"; // eslint-disable-line no-unused-vars
+import m from "mithril";
 import AboutPage from "@/view/about";
 import LoginPage from "@/view/login";
-// import RegisterPage from "@/view/register";
+import RegisterPage from "@/view/register";
 import HomePage from "@/view/home";
-// import NotepadPage from "@/view/notepad";
+import NotepadPage from "@/view/notepad";
 import ErrorPage from "@/view/error";
 import LayoutMain from "@/layout/main";
 import CookieStore from "@/module/cookiestore";
@@ -19,24 +19,24 @@ m.route(document.body, "/", {
       else m.route.set("/login");
     },
   },
-  // "/notepad": {
-  //   onmatch: () => {
-  //     if (CookieStore.isLoggedIn()) return Notepad;
-  //     else m.route.set("/login");
-  //   },
-  // },
+  "/notepad": {
+    onmatch: () => {
+      if (CookieStore.isLoggedIn()) return Notepad;
+      else m.route.set("/login");
+    },
+  },
   "/login": {
     onmatch: () => {
       if (CookieStore.isLoggedIn()) m.route.set("/");
       else return Login;
     },
   },
-  // "/register": {
-  //   onmatch: () => {
-  //     if (CookieStore.isLoggedIn()) m.route.set("/");
-  //     else return Register;
-  //   },
-  // },
+  "/register": {
+    onmatch: () => {
+      if (CookieStore.isLoggedIn()) m.route.set("/");
+      else return Register;
+    },
+  },
   "/about": {
     render: () => {
       return m(LayoutMain, m(AboutPage));
@@ -55,11 +55,11 @@ const Index = {
   },
 };
 
-// const Notepad = {
-//   view: () => {
-//     return m(LayoutMain, m(NotepadPage));
-//   },
-// };
+const Notepad = {
+  view: () => {
+    return m(LayoutMain, m(NotepadPage));
+  },
+};
 
 const Login = {
   view: () => {
@@ -67,8 +67,8 @@ const Login = {
   },
 };
 
-// const Register = {
-//   view: () => {
-//     return m(LayoutMain, m(RegisterPage));
-//   },
-// };
+const Register = {
+  view: () => {
+    return m(LayoutMain, m(RegisterPage));
+  },
+};

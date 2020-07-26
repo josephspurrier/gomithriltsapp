@@ -1,4 +1,4 @@
-import m from "mithril"; // eslint-disable-line no-unused-vars
+import m from "mithril";
 import Flash from "@/component/flash";
 import CookieStore from "@/module/cookiestore";
 
@@ -12,10 +12,13 @@ interface ReturnNote {
 }
 
 const NoteStore = {
-  current: {},
+  current: {} as Note,
   list: [] as Note[],
   clear: (): void => {
-    NoteStore.current = {};
+    NoteStore.current = {
+      id: "",
+      message: "",
+    };
   },
   submit: (): void => {
     NoteStore.create()

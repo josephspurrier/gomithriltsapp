@@ -1,24 +1,36 @@
-import m from "mithril"; // eslint-disable-line no-unused-vars
+import m from "mithril";
 import UserRegister from "@/store/userregister";
 
-var data = {
-  title: "Register",
-  subtitle: "Enter your information below.",
-};
+interface defaultAttrs {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
+}
 
-var Page = (vnodeInitial) => {
+const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
+  const data = {
+    title: "Register",
+    subtitle: "Enter your information below.",
+  };
+
+  UserRegister.user.first_name = "a";
+  UserRegister.user.last_name = "a";
+  UserRegister.user.email = "a@a.com";
+  UserRegister.user.password = "a";
+
   // Prefill the fields.
-  if (vnodeInitial.attrs.firstName) {
-    UserRegister.user.first_name = vnodeInitial.attrs.firstName;
+  if (attrs.firstName) {
+    UserRegister.user.first_name = attrs.firstName;
   }
-  if (vnodeInitial.attrs.lastName) {
-    UserRegister.user.last_name = vnodeInitial.attrs.lastName;
+  if (attrs.lastName) {
+    UserRegister.user.last_name = attrs.lastName;
   }
-  if (vnodeInitial.attrs.email) {
-    UserRegister.user.email = vnodeInitial.attrs.email;
+  if (attrs.email) {
+    UserRegister.user.email = attrs.email;
   }
-  if (vnodeInitial.attrs.password) {
-    UserRegister.user.password = vnodeInitial.attrs.password;
+  if (attrs.password) {
+    UserRegister.user.password = attrs.password;
   }
 
   return {
@@ -44,7 +56,7 @@ var Page = (vnodeInitial) => {
                         class="input"
                         data-cy="first_name"
                         required
-                        oninput={(e) => {
+                        oninput={(e: { target: HTMLInputElement }) => {
                           UserRegister.user.first_name = e.target.value;
                         }}
                         value={UserRegister.user.first_name}
@@ -62,7 +74,7 @@ var Page = (vnodeInitial) => {
                         class="input"
                         data-cy="last_name"
                         required
-                        oninput={(e) => {
+                        oninput={(e: { target: HTMLInputElement }) => {
                           UserRegister.user.last_name = e.target.value;
                         }}
                         value={UserRegister.user.last_name}
@@ -80,7 +92,7 @@ var Page = (vnodeInitial) => {
                         class="input"
                         data-cy="email"
                         required
-                        oninput={(e) => {
+                        oninput={(e: { target: HTMLInputElement }) => {
                           UserRegister.user.email = e.target.value;
                         }}
                         value={UserRegister.user.email}
@@ -98,7 +110,7 @@ var Page = (vnodeInitial) => {
                         class="input"
                         data-cy="password"
                         required
-                        oninput={(e) => {
+                        oninput={(e: { target: HTMLInputElement }) => {
                           UserRegister.user.password = e.target.value;
                         }}
                         value={UserRegister.user.password}
