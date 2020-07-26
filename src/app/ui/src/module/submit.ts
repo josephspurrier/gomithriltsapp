@@ -1,14 +1,14 @@
-var Submit = {
+const Submit = {
   disabled: false,
   submitText: "Submitting...",
-  start: (event) => {
+  start: function (event: { preventDefault: () => void }): void {
     event.preventDefault();
     Submit.disabled = true;
   },
-  finish: () => {
+  finish: function (): void {
     Submit.disabled = false;
   },
-  text: (s) => {
+  text: function (s: string): string {
     if (!Submit.disabled) {
       return s;
     } else {

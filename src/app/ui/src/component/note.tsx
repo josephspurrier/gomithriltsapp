@@ -1,8 +1,18 @@
-import m from "mithril"; // eslint-disable-line no-unused-vars
+import m from "mithril";
 import Debounce from "@/module/debounce";
 import NoteStore from "@/store/notestore";
 
-var View = () => {
+interface defaultAttrs {
+  id: string;
+  message?: string;
+  oninput: (e: string) => void;
+}
+
+interface defaultState {
+  saving: string;
+}
+
+const View = (): m.Component<defaultAttrs, defaultState> => {
   return {
     view: (vnode) => (
       <li style="margin-top: 12px;">
@@ -15,7 +25,7 @@ var View = () => {
                 class="input individual-note"
                 value={vnode.attrs.message}
                 oninput={vnode.attrs.oninput}
-                onkeyup={(e) => {
+                onkeyup={(e: { target: HTMLInputElement }) => {
                   Debounce.run(
                     vnode.attrs.id,
                     () => {

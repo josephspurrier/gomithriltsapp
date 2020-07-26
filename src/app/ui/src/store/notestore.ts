@@ -2,13 +2,22 @@ import m from "mithril"; // eslint-disable-line no-unused-vars
 import Flash from "@/component/flash";
 import CookieStore from "@/module/cookiestore";
 
-var NoteStore = {
+interface Note {
+  id: string;
+  message: string;
+}
+
+interface ReturnNote {
+  notes: Note[];
+}
+
+const NoteStore = {
   current: {},
-  list: [],
-  clear: () => {
+  list: [] as Note[],
+  clear: (): void => {
     NoteStore.current = {};
   },
-  submit: () => {
+  submit: (): void => {
     NoteStore.create()
       .then(() => {
         Flash.success("Note created.");
@@ -20,7 +29,7 @@ var NoteStore = {
         Flash.warning(err.response.message);
       });
   },
-  create: () => {
+  create: (): Promise<void | m.Static> => {
     return m.request({
       method: "POST",
       url: "/api/v1/note",
@@ -30,7 +39,7 @@ var NoteStore = {
       body: NoteStore.current,
     });
   },
-  load: () => {
+  load: (): Promise<void | m.Static> => {
     return m
       .request({
         method: "GET",
@@ -39,16 +48,16 @@ var NoteStore = {
           Authorization: CookieStore.bearerToken(),
         },
       })
-      .then((result) => {
+      .then((result: ReturnNote) => {
         NoteStore.list = result.notes;
       });
   },
-  runUpdate: (id, value) => {
+  runUpdate: (id: string, value: string): void => {
     NoteStore.update(id, value).catch((e) => {
       Flash.warning("Could not update note: " + e.response.message);
     });
   },
-  update: (id, text) => {
+  update: (id: string, text: string): Promise<m.Static> => {
     return m.request({
       method: "PUT",
       url: "/api/v1/note/" + id,
@@ -58,7 +67,7 @@ var NoteStore = {
       body: { message: text },
     });
   },
-  runDelete: (id) => {
+  runDelete: (id: string): void => {
     NoteStore.delete(id)
       .then(() => {
         Flash.success("Note deleted.");
@@ -71,7 +80,7 @@ var NoteStore = {
         Flash.warning("Could not delete: " + err.response.message);
       });
   },
-  delete: (id) => {
+  delete: (id: string): Promise<m.Static> => {
     return m.request({
       method: "DELETE",
       url: "/api/v1/note/" + id,
