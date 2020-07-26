@@ -14,11 +14,6 @@ const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
     subtitle: "Enter your information below.",
   };
 
-  UserRegister.user.first_name = "a";
-  UserRegister.user.last_name = "a";
-  UserRegister.user.email = "a@a.com";
-  UserRegister.user.password = "a";
-
   // Prefill the fields.
   if (attrs.firstName) {
     UserRegister.user.first_name = attrs.firstName;

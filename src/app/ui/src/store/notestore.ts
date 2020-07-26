@@ -79,7 +79,6 @@ const NoteStore = {
         });
       })
       .catch((err) => {
-        console.log(err);
         Flash.warning("Could not delete: " + err.response.message);
       });
   },

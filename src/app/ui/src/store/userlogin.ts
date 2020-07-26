@@ -28,7 +28,6 @@ const UserLogin = (e: InputEvent, user: User): Promise<void> => {
       body: user,
     })
     .then((data: loginResponse) => {
-      console.log(data);
       Submit.finish();
 
       const auth = {
@@ -43,7 +42,6 @@ const UserLogin = (e: InputEvent, user: User): Promise<void> => {
     .catch((err: XMLHttpRequest) => {
       Submit.finish();
       Flash.warning((err.response as errorResponse).message);
-      //throw err;
     });
 };
 

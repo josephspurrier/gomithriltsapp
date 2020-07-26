@@ -25,9 +25,6 @@ const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
     };
   };
 
-  user.email = "a@a.com";
-  user.password = "a";
-
   // Prefill the fields.
   if (attrs.email) {
     user.email = attrs.email;
@@ -53,9 +50,6 @@ const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
                   UserLogin(e, user).then(() => {
                     clear();
                   });
-                  // .catch(() => {
-                  //   console.log("catch error");
-                  // });
                 },
               },
               [
