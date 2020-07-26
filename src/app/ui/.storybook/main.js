@@ -2,7 +2,7 @@ const path = require('path');
 const rootWebpack = require('../webpack.config.js');
 
 module.exports = {
-    stories: ['../src/**/*.stories.js'],
+    stories: ['../src/**/*.stories.[jt]s'],
     addons: [
         '@storybook/addon-storysource',
         '@storybook/addon-actions/register',
@@ -17,6 +17,10 @@ module.exports = {
                 ...rootWebpack.plugins,
             ],
             resolve: {
+                extensions: [
+                    ...config.resolve.extensions,
+                    ...rootWebpack.resolve.extensions,
+                ],
                 alias: {
                     ...config.resolve.alias,
                     ...rootWebpack.resolve.alias,
