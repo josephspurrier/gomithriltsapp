@@ -20,7 +20,7 @@ func init() {
 
 // LoadDatabase will set up the DB and apply migrations for the tests.
 func LoadDatabase(ml logger.ILog) *database.DBW {
-	unique := "T" + fmt.Sprint(rand.Intn(500))
+	unique := "T" + fmt.Sprint(rand.Intn(999999999))
 
 	password := "password"
 	if os.Getenv("TRAVIS") == "true" {

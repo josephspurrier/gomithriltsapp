@@ -5,16 +5,17 @@ module.exports = {
         node: true,
         es6: true
     },
-    parserOptions: {
-        parser: 'babel-eslint',
-        sourceType: "module",
-        allowImportExportEverywhere: true
-    },
+    parser: '@typescript-eslint/parser',
     extends: [
         'eslint:recommended',
         'plugin:prettier/recommended',
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:@typescript-eslint/recommended',
         'plugin:mithril/recommended'
     ],
-    plugins: ['prettier'],
+    plugins: [
+        'prettier',
+        '@typescript-eslint'
+    ],
     rules: {}
 }

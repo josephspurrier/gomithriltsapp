@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        //"sourceMap": true,
+        "module": "CommonJS",
+        "target": "es5",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "baseUrl": "./",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ],
+            "~/*": [
+                "*"
+            ],
+        },
+        "outDir": "./dist/",
+        "noImplicitAny": true,
+        "jsx": "react",
+        "jsxFactory": "m",
+        "allowJs": false,
+        "checkJs": false,
+    },
+    "include": [
+        "src/**/*",
+        ".storybook/**/*",
+        "test/**/*",
+        "node_modules/cypress/**/*",
+    ]
+}
