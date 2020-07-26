@@ -1,14 +1,14 @@
-import m from "mithril"; // eslint-disable-line no-unused-vars
+import m from "mithril";
 import Menu from "@/component/menu";
-import Flash from "@/component/flash";
+//import Flash from "@/component/flash";
 
-var View = () => {
+const View = (): m.Component => {
   return {
     view: (vnode) => {
       return m("main.layout", [
         m(Menu),
         m("section", vnode.children),
-        m(Flash),
+        //m(Flash),
       ]);
     },
   };

@@ -1,11 +1,14 @@
-import m from "mithril"; // eslint-disable-line no-unused-vars
+import m from "mithril";
 import CookieStore from "@/module/cookiestore";
 
-var View = () => {
-  let logout = () => {
+const View = (): m.Component => {
+  const logout = () => {
     CookieStore.clear();
     m.route.set("/");
   };
+
+  // FIXME: change a to m.route.Link.
+  //                   {m(m.route.Link, { href: "" })}
 
   return {
     view: () => (
@@ -16,9 +19,9 @@ var View = () => {
           aria-label="main navigation"
         >
           <div class="navbar-brand">
-            <m.route.Link class="navbar-item" href="/" data-cy="home-link">
+            <a class="navbar-item" href="/" data-cy="home-link">
               <strong>gomithrilapp</strong>
-            </m.route.Link>
+            </a>
 
             <a
               id="mobile-navbar-top"
@@ -47,19 +50,20 @@ var View = () => {
 
                 <div class="navbar-dropdown is-right">
                   {!CookieStore.isLoggedIn() && (
-                    <m.route.Link class="navbar-item" href="/login">
+                    <a class="navbar-item" href="/login">
                       Login
-                    </m.route.Link>
+                    </a>
                   )}
+
                   <a
                     class="navbar-item"
                     href={`https://petstore.swagger.io/?url=${location.origin}/static/swagger.json`}
                   >
                     Swagger
                   </a>
-                  <m.route.Link class="navbar-item" href="/about">
+                  <a class="navbar-item" href="/about">
                     About
-                  </m.route.Link>
+                  </a>
                   <hr class="navbar-divider" />
                   {CookieStore.isLoggedIn() && (
                     <a

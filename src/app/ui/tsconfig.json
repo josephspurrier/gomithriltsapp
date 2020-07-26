@@ -16,6 +16,7 @@
         "noImplicitAny": true,
         "module": "es6",
         "jsx": "react",
+        "jsxFactory": "m",
         "allowJs": false,
         "checkJs": false,
     },

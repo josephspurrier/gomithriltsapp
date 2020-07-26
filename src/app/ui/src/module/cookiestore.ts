@@ -1,25 +1,30 @@
 import Cookie from "js-cookie";
 
-var CookieStore = {
+interface Auth {
+  accessToken: string;
+  loggedIn: boolean;
+}
+
+const CookieStore = {
   cookieName: "auth",
-  save: (auth) => {
+  save: (auth: Auth): void => {
     Cookie.set(CookieStore.cookieName, auth);
   },
-  clear: () => {
+  clear: (): void => {
     Cookie.remove(CookieStore.cookieName);
   },
-  bearerToken: () => {
-    let auth = Cookie.get(CookieStore.cookieName);
+  bearerToken: (): string => {
+    const auth = Cookie.get(CookieStore.cookieName);
     if (auth === undefined) {
-      return false;
+      return "";
     }
 
-    let v = JSON.parse(auth);
+    const v = JSON.parse(auth);
     return "Bearer " + v.accessToken;
   },
-  isLoggedIn: () => {
+  isLoggedIn: (): boolean => {
     try {
-      let auth = Cookie.get(CookieStore.cookieName);
+      const auth = Cookie.get(CookieStore.cookieName);
       if (auth === undefined) {
         return false;
       }
