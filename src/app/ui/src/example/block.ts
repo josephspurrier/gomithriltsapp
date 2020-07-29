@@ -2,7 +2,7 @@ import m from "mithril";
 
 const Block = (): m.Component => {
   return {
-    view: (vnode) => m("div", vnode.children),
+    view: ({ children }) => m("div", children),
   };
 };
 

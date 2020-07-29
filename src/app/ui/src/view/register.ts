@@ -9,11 +9,6 @@ interface defaultAttrs {
 }
 
 const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
-  const data = {
-    title: "Register",
-    subtitle: "Enter your information below.",
-  };
-
   // Prefill the fields.
   if (attrs.firstName) {
     UserRegister.user.first_name = attrs.firstName;
@@ -33,8 +28,8 @@ const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
       m("div", [
         m("section", { class: "section" }, [
           m("div", { class: "container" }, [
-            m("h1", { class: "title" }, data.title),
-            m("h2", { class: "subtitle" }, data.subtitle),
+            m("h1", { class: "title" }, "Register"),
+            m("h2", { class: "subtitle" }, "Enter your information below."),
           ]),
           m("div", { class: "container", style: { "margin-top": "1em" } }, [
             m("form", { name: "login", onsubmit: UserRegister.submit }, [

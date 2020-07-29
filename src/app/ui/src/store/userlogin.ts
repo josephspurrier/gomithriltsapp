@@ -3,7 +3,7 @@ import Submit from "@/module/submit";
 import Flash from "@/component/flash";
 import CookieStore from "@/module/cookiestore";
 
-interface User {
+interface user {
   email: string;
   password: string;
 }
@@ -18,14 +18,14 @@ interface errorResponse {
   message: string;
 }
 
-const UserLogin = (e: InputEvent, user: User): Promise<void> => {
+const UserLogin = (e: InputEvent, u: user): Promise<void> => {
   Submit.start(e);
 
   return m
     .request({
       method: "POST",
       url: "/api/v1/login",
-      body: user,
+      body: u,
     })
     .then((data: loginResponse) => {
       Submit.finish();

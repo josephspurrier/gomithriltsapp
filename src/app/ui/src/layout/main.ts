@@ -4,12 +4,8 @@ import Flash from "@/component/flash";
 
 const View = (): m.Component => {
   return {
-    view: (vnode) => {
-      return m("main.layout", [
-        m(Menu),
-        m("section", vnode.children),
-        m(Flash),
-      ]);
+    view: ({ children }) => {
+      return m("main.layout", [m(Menu), m("section", children), m(Flash)]);
     },
   };
 };

@@ -2,7 +2,7 @@ import m from "mithril";
 import NoteStore from "@/store/notestore";
 import Note from "@/component/note";
 
-interface Notes {
+interface note {
   id: string;
   message: string;
 }
@@ -60,13 +60,13 @@ const Page: m.ClosureComponent = () => {
           ]),
           m("div", [
             m("ul", { id: "listTodo" }, [
-              NoteStore.list.map((note: Notes) =>
+              NoteStore.list.map((n: note) =>
                 m(Note, {
-                  key: note.id,
-                  id: note.id,
-                  message: note.message,
+                  key: n.id,
+                  id: n.id,
+                  message: n.message,
                   oninput: function (e: { target: HTMLInputElement }) {
-                    note.message = e.target.value;
+                    n.message = e.target.value;
                   },
                 })
               ),

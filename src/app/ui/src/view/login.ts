@@ -8,11 +8,6 @@ interface defaultAttrs {
 }
 
 const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
-  const data = {
-    title: "Login",
-    subtitle: "Enter your login information below.",
-  };
-
   let user = {
     email: "",
     password: "",
@@ -38,8 +33,12 @@ const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
       m("div", [
         m("section", { class: "section" }, [
           m("div", { class: "container" }, [
-            m("h1", { class: "title" }, data.title),
-            m("h2", { class: "subtitle" }, data.subtitle),
+            m("h1", { class: "title" }, "Login"),
+            m(
+              "h2",
+              { class: "subtitle" },
+              "Enter your login information below."
+            ),
           ]),
           m("div", { class: "container", style: { "margin-top": "1em" } }, [
             m(

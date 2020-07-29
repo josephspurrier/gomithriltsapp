@@ -22,7 +22,7 @@ const View = (): m.Component => {
               m(
                 m.route.Link,
                 { class: "navbar-item", href: "/", "data-cy": "home-link" },
-                m("strong", "gomithrilapp")
+                m("strong", "gomithriltsapp")
               ),
               m(
                 "a",

@@ -2,18 +2,18 @@ import m from "mithril";
 import Flash from "@/component/flash";
 import CookieStore from "@/module/cookiestore";
 
-interface Note {
+interface note {
   id: string;
   message: string;
 }
 
-interface ReturnNote {
-  notes: Note[];
+interface noteResponse {
+  notes: note[];
 }
 
 const NoteStore = {
-  current: {} as Note,
-  list: [] as Note[],
+  current: {} as note,
+  list: [] as note[],
   clear: (): void => {
     NoteStore.current = {
       id: "",
@@ -51,7 +51,7 @@ const NoteStore = {
           Authorization: CookieStore.bearerToken(),
         },
       })
-      .then((result: ReturnNote) => {
+      .then((result: noteResponse) => {
         NoteStore.list = result.notes;
       });
   },
