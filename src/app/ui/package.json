@@ -1,8 +1,8 @@
 {
-  "name": "gomithrilapp",
+  "name": "gomithriltsapp",
   "version": "1.0.0",
   "description": "A sample notepad application in Mithril and Go.",
-  "main": "gomithrilapp",
+  "main": "gomithriltsapp",
   "scripts": {
     "start": "webpack -d --watch",
     "build": "webpack -p",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/josephspurrier/gomithrilapp.git"
+    "url": "git://github.com/josephspurrier/gomithriltsapp.git"
   },
   "author": "Joseph Spurrier",
   "license": "MIT",
