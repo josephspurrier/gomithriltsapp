@@ -14,14 +14,17 @@ export const simplePage = (): m.Component => ({
   view: () => {
     return m(
       LayoutMain,
-      m(SimplePage, {
-        title: text("Title", "This is the Title"),
-        description: m(
-          "span",
-          text("Description", "This is a subtitle or description.")
-        ),
-        content: text("Content", "This is the content."),
-      })
+      m(
+        SimplePage,
+        {
+          title: text("Title", "This is the Title"),
+          description: text(
+            "Description",
+            "This is a subtitle or description."
+          ),
+        },
+        [text("Content", "This is the content.")]
+      )
     );
   },
 });
