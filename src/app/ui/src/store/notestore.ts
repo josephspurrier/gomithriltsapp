@@ -51,8 +51,13 @@ const NoteStore = {
           Authorization: CookieStore.bearerToken(),
         },
       })
-      .then((result: noteResponse) => {
-        NoteStore.list = result.notes;
+      .then((raw: unknown) => {
+        const result = raw as noteResponse;
+        if (result) {
+          NoteStore.list = result.notes;
+        } else {
+          Flash.failed("Data returned is not valid.");
+        }
       });
   },
   runUpdate: (id: string, value: string): void => {

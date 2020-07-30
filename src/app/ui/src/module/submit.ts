@@ -9,11 +9,7 @@ const Submit = {
     Submit.disabled = false;
   },
   text: function (s: string): string {
-    if (!Submit.disabled) {
-      return s;
-    } else {
-      return Submit.submitText;
-    }
+    return !Submit.disabled ? s : Submit.submitText;
   },
 };
 

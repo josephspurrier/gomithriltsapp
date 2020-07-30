@@ -1,10 +1,9 @@
 {
     "compilerOptions": {
         "target": "es5",
+        "module": "CommonJS",
         "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
         "baseUrl": "./",
-        "checkJs": false,
         "paths": {
             "@/*": [
                 "src/*"
@@ -13,6 +12,7 @@
                 "*"
             ],
         },
+        "checkJs": false,
     },
     "include": [
         "src/**/*",

@@ -1,11 +1,10 @@
 {
     "compilerOptions": {
-        //"sourceMap": true,
-        "module": "CommonJS",
         "target": "es5",
-        "allowSyntheticDefaultImports": true,
+        "module": "CommonJS",
         "esModuleInterop": true,
         "baseUrl": "./",
+        "strict": true,
         "paths": {
             "@/*": [
                 "src/*"
@@ -14,8 +13,8 @@
                 "*"
             ],
         },
+        "sourceMap": true,
         "outDir": "./dist/",
-        "noImplicitAny": true,
         "jsx": "react",
         "jsxFactory": "m",
         "allowJs": false,

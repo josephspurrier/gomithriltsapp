@@ -10,18 +10,10 @@ interface defaultAttrs {
 
 const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
   // Prefill the fields.
-  if (attrs.firstName) {
-    UserRegister.user.first_name = attrs.firstName;
-  }
-  if (attrs.lastName) {
-    UserRegister.user.last_name = attrs.lastName;
-  }
-  if (attrs.email) {
-    UserRegister.user.email = attrs.email;
-  }
-  if (attrs.password) {
-    UserRegister.user.password = attrs.password;
-  }
+  UserRegister.user.first_name = attrs.firstName || "";
+  UserRegister.user.last_name = attrs.lastName || "";
+  UserRegister.user.email = attrs.email || "";
+  UserRegister.user.password = attrs.password || "";
 
   return {
     view: () =>

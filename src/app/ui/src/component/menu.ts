@@ -36,8 +36,12 @@ const View = (): m.Component => {
                   onclick: function () {
                     const mob = document.getElementById("mobile-navbar-top");
                     const nav = document.getElementById("navbar-top");
-                    mob.classList.toggle("is-active");
-                    nav.classList.toggle("is-active");
+                    if (mob) {
+                      mob.classList.toggle("is-active");
+                    }
+                    if (nav) {
+                      nav.classList.toggle("is-active");
+                    }
                   },
                 },
                 [

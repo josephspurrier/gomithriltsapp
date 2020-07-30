@@ -1,10 +1,11 @@
 const Debounce = {
-  m: new Map(),
+  m: new Map<string, ReturnType<typeof setTimeout>>(),
   run(id: string, func: () => void, timeout: number): void {
-    if (this.m[id]) {
-      clearTimeout(this.m[id]);
+    const timer = this.m.get(id);
+    if (timer) {
+      clearTimeout(timer);
     }
-    this.m[id] = setTimeout(func, timeout);
+    this.m.set(id, setTimeout(func, timeout));
   },
 };
 

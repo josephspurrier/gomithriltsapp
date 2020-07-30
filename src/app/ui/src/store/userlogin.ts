@@ -27,17 +27,23 @@ const UserLogin = (e: InputEvent, u: user): Promise<void> => {
       url: "/api/v1/login",
       body: u,
     })
-    .then((data: loginResponse) => {
+    .then((raw: unknown) => {
       Submit.finish();
 
-      const auth = {
-        accessToken: data.token,
-        loggedIn: true,
-      };
-      CookieStore.save(auth);
+      const data = raw as loginResponse;
+      if (data) {
+        const auth = {
+          accessToken: data.token,
+          loggedIn: true,
+        };
+        CookieStore.save(auth);
 
-      Flash.success("Login successful.");
-      m.route.set("/");
+        Flash.success("Login successful.");
+        m.route.set("/");
+      } else {
+        Flash.failed("Data returned is not valid.");
+        m.route.set("/");
+      }
     })
     .catch((err: XMLHttpRequest) => {
       Submit.finish();

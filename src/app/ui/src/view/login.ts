@@ -21,12 +21,8 @@ const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
   };
 
   // Prefill the fields.
-  if (attrs.email) {
-    user.email = attrs.email;
-  }
-  if (attrs.password) {
-    user.password = attrs.password;
-  }
+  user.email = attrs.email || "";
+  user.password = attrs.password || "";
 
   return {
     view: () =>
