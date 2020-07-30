@@ -20,6 +20,7 @@ func SetupStatic(core Core) {
 	p.Core = core
 
 	p.Router.Get("/api/v1", p.Index)
+	p.Router.Get("/404", p.Error404)
 	p.Router.Get("/static...", p.Static)
 }
 
@@ -32,6 +33,12 @@ func SetupStatic(core Core) {
 //   200: OKResponse
 func (p StaticEndpoint) Index(w http.ResponseWriter, r *http.Request) (int, error) {
 	return p.Response.OK(w, "ready")
+}
+
+// Error404 .
+func (p StaticEndpoint) Error404(w http.ResponseWriter, r *http.Request) (int, error) {
+	w.WriteHeader(http.StatusNotFound)
+	return p.Static(w, r)
 }
 
 // Static .

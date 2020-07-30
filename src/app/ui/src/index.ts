@@ -38,13 +38,12 @@ m.route(document.body, "/", {
     render: () => m(LayoutMain, m(RegisterPage)),
   },
   "/about": {
-    render: () => {
-      return m(LayoutMain, m(AboutPage));
-    },
+    render: () => m(LayoutMain, m(AboutPage)),
+  },
+  "/404": {
+    render: () => m(LayoutMain, m(ErrorPage)),
   },
   "/:404...": {
-    view: () => {
-      return m(LayoutMain, m(ErrorPage));
-    },
+    onmatch: () => window.location.replace("/404"),
   },
 });
