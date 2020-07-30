@@ -18,14 +18,14 @@ interface errorResponse {
   message: string;
 }
 
-const UserLogin = (e: InputEvent, u: user): Promise<void> => {
+const UserLogin = (e: InputEvent, body: user): Promise<void> => {
   Submit.start(e);
 
   return m
     .request({
       method: "POST",
       url: "/api/v1/login",
-      body: u,
+      body,
     })
     .then((raw: unknown) => {
       Submit.finish();
@@ -39,11 +39,11 @@ const UserLogin = (e: InputEvent, u: user): Promise<void> => {
         CookieStore.save(auth);
 
         Flash.success("Login successful.");
-        m.route.set("/");
       } else {
         Flash.failed("Data returned is not valid.");
-        m.route.set("/");
       }
+
+      m.route.set("/");
     })
     .catch((err: XMLHttpRequest) => {
       Submit.finish();

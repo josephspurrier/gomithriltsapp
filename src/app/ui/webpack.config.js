@@ -11,12 +11,12 @@ const ASSET_PATH = process.env.ASSET_PATH || "/";
 module.exports = {
   entry: "./src/index.ts",
   plugins: [
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({
+      verbose: true,
+    }),
     new HtmlWebpackPlugin({
       filename: "./index.html",
       title: "gomithrilapp",
-      hash: true,
-      cache: false,
     }),
     new MiniCssExtractPlugin({
       filename: "static/[name].[contenthash].css",
