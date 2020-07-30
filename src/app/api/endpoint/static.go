@@ -37,8 +37,31 @@ func (p StaticEndpoint) Index(w http.ResponseWriter, r *http.Request) (int, erro
 
 // Error404 .
 func (p StaticEndpoint) Error404(w http.ResponseWriter, r *http.Request) (int, error) {
+	// Get the environment variable in production.
+	basepath := os.Getenv("APP_ROOT")
+	if len(basepath) == 0 {
+		gopath := os.Getenv("GOPATH")
+		if len(gopath) == 0 {
+			return http.StatusInternalServerError, errors.New("could not find $APP_ROOT or $GOPATH environment variables")
+		}
+
+		basepath = filepath.Join(gopath, "src/app/ui/dist")
+	}
+
+	// Serve the index file.
+	b, err := ioutil.ReadFile(basepath + "/index.html")
+	if err != nil {
+		return http.StatusInternalServerError, errors.New("could not find index.html")
+	}
+
+	// Return a 404 and serve the index.html file.
 	w.WriteHeader(http.StatusNotFound)
-	return p.Static(w, r)
+	_, err = fmt.Fprint(w, string(b))
+	if err != nil {
+		return http.StatusInternalServerError, err
+	}
+
+	return 0, nil
 }
 
 // Static .
