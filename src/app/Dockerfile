@@ -6,7 +6,7 @@ COPY ./ui/package*.json ./
 # Reliable DNS.
 RUN echo nameserver 8.8.8.8 > /etc/resolv.conf
 # Get dependencies.
-RUN npm install
+RUN npm install --production
 # Copy over all files.
 COPY ./ui .
 # Build the dist.
