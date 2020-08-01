@@ -1,9 +1,9 @@
 import m from "mithril";
 
-const Block = (): m.Component => {
+const block = (): m.Component => {
   return {
     view: ({ children }) => m("div", children),
   };
 };
 
-export default Block;
+export default block;

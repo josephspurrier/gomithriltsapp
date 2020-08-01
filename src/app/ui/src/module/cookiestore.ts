@@ -5,16 +5,16 @@ interface Auth {
   loggedIn: boolean;
 }
 
-const CookieStore = {
+const cookieStore = {
   cookieName: "auth",
   save: (auth: Auth): void => {
-    Cookie.set(CookieStore.cookieName, auth);
+    Cookie.set(cookieStore.cookieName, auth);
   },
   clear: (): void => {
-    Cookie.remove(CookieStore.cookieName);
+    Cookie.remove(cookieStore.cookieName);
   },
   bearerToken: (): string => {
-    const auth = Cookie.get(CookieStore.cookieName);
+    const auth = Cookie.get(cookieStore.cookieName);
     if (auth === undefined) {
       return "";
     }
@@ -24,7 +24,7 @@ const CookieStore = {
   },
   isLoggedIn: (): boolean => {
     try {
-      const auth = Cookie.get(CookieStore.cookieName);
+      const auth = Cookie.get(cookieStore.cookieName);
       return auth !== undefined;
     } catch (err) {
       console.log(err);
@@ -34,4 +34,4 @@ const CookieStore = {
   },
 };
 
-export default CookieStore;
+export default cookieStore;

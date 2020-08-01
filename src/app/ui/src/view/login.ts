@@ -2,12 +2,12 @@ import m from "mithril";
 import UserLogin from "@/store/userlogin";
 import Input from "@/component/input";
 
-interface defaultAttrs {
+interface Attrs {
   email?: string;
   password?: string;
 }
 
-const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
+const login: m.ClosureComponent<Attrs> = ({ attrs }) => {
   let user = {
     email: "",
     password: "",
@@ -109,4 +109,4 @@ const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
   };
 };
 
-export default Page;
+export default login;

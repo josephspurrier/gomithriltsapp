@@ -2,31 +2,32 @@ import m from "mithril";
 import Flash from "@/component/flash";
 import CookieStore from "@/module/cookiestore";
 
-interface note {
+export interface Note {
   id: string;
   message: string;
 }
 
-interface noteResponse {
-  notes: note[];
+interface NoteResponse {
+  notes: Note[];
 }
 
-const NoteStore = {
-  current: {} as note,
-  list: [] as note[],
+const noteStore = {
+  current: {} as Note,
+  list: [] as Note[],
   clear: (): void => {
-    NoteStore.current = {
+    noteStore.current = {
       id: "",
       message: "",
     };
   },
   submit: (): void => {
-    NoteStore.create()
+    noteStore
+      .create()
       .then(() => {
         Flash.success("Note created.");
         // This could be optimized instead of reloading.
-        NoteStore.load();
-        NoteStore.clear();
+        noteStore.load();
+        noteStore.clear();
       })
       .catch((err) => {
         Flash.warning(err.response.message);
@@ -39,7 +40,7 @@ const NoteStore = {
       headers: {
         Authorization: CookieStore.bearerToken(),
       },
-      body: NoteStore.current,
+      body: noteStore.current,
     });
   },
   load: (): Promise<void | m.Static> => {
@@ -52,16 +53,16 @@ const NoteStore = {
         },
       })
       .then((raw: unknown) => {
-        const result = raw as noteResponse;
+        const result = raw as NoteResponse;
         if (result) {
-          NoteStore.list = result.notes;
+          noteStore.list = result.notes;
         } else {
           Flash.failed("Data returned is not valid.");
         }
       });
   },
   runUpdate: (id: string, value: string): void => {
-    NoteStore.update(id, value).catch((e) => {
+    noteStore.update(id, value).catch((e) => {
       Flash.warning("Could not update note: " + e.response.message);
     });
   },
@@ -76,10 +77,11 @@ const NoteStore = {
     });
   },
   runDelete: (id: string): void => {
-    NoteStore.delete(id)
+    noteStore
+      .delete(id)
       .then(() => {
         Flash.success("Note deleted.");
-        NoteStore.list = NoteStore.list.filter((i) => {
+        noteStore.list = noteStore.list.filter((i) => {
           return i.id !== id;
         });
       })
@@ -98,4 +100,4 @@ const NoteStore = {
   },
 };
 
-export default NoteStore;
+export default noteStore;

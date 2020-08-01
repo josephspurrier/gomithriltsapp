@@ -2,7 +2,7 @@ import m from "mithril";
 import Submit from "@/module/submit";
 import Flash from "@/component/flash";
 
-const UserRegister = {
+const userRegister = {
   user: {
     first_name: "",
     last_name: "",
@@ -10,7 +10,7 @@ const UserRegister = {
     password: "",
   },
   clear: (): void => {
-    UserRegister.user = {
+    userRegister.user = {
       first_name: "",
       last_name: "",
       email: "",
@@ -21,15 +21,16 @@ const UserRegister = {
     return m.request({
       method: "POST",
       url: "/api/v1/register",
-      body: UserRegister.user,
+      body: userRegister.user,
     });
   },
   submit: (e: InputEvent): void => {
     Submit.start(e);
 
-    UserRegister.register()
+    userRegister
+      .register()
       .then(() => {
-        UserRegister.clear();
+        userRegister.clear();
         Submit.finish();
 
         Flash.success("User registered.");
@@ -42,4 +43,4 @@ const UserRegister = {
   },
 };
 
-export default UserRegister;
+export default userRegister;

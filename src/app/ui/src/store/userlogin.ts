@@ -3,22 +3,22 @@ import Submit from "@/module/submit";
 import Flash from "@/component/flash";
 import CookieStore from "@/module/cookiestore";
 
-interface user {
+interface User {
   email: string;
   password: string;
 }
 
-interface loginResponse {
+interface LoginResponse {
   status: string;
   token: string;
 }
 
-interface errorResponse {
+interface ErrorResponse {
   status: string;
   message: string;
 }
 
-const UserLogin = (e: InputEvent, body: user): Promise<void> => {
+const userLogin = (e: InputEvent, body: User): Promise<void> => {
   Submit.start(e);
 
   return m
@@ -30,7 +30,7 @@ const UserLogin = (e: InputEvent, body: user): Promise<void> => {
     .then((raw: unknown) => {
       Submit.finish();
 
-      const data = raw as loginResponse;
+      const data = raw as LoginResponse;
       if (data) {
         const auth = {
           accessToken: data.token,
@@ -47,8 +47,8 @@ const UserLogin = (e: InputEvent, body: user): Promise<void> => {
     })
     .catch((err: XMLHttpRequest) => {
       Submit.finish();
-      Flash.warning((err.response as errorResponse).message);
+      Flash.warning((err.response as ErrorResponse).message);
     });
 };
 
-export default UserLogin;
+export default userLogin;

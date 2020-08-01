@@ -1,13 +1,8 @@
 import m from "mithril";
-import NoteStore from "@/store/notestore";
+import NoteStore, { Note as INote } from "@/store/notestore";
 import Note from "@/component/note";
 
-interface note {
-  id: string;
-  message: string;
-}
-
-const Page: m.ClosureComponent = () => {
+const notepad: m.ClosureComponent = () => {
   NoteStore.load();
 
   return {
@@ -60,7 +55,7 @@ const Page: m.ClosureComponent = () => {
           ]),
           m("div", [
             m("ul", { id: "listTodo" }, [
-              NoteStore.list.map((n: note) =>
+              NoteStore.list.map((n: INote) =>
                 m(Note, {
                   key: n.id,
                   id: n.id,
@@ -77,4 +72,4 @@ const Page: m.ClosureComponent = () => {
   };
 };
 
-export default Page;
+export default notepad;

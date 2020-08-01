@@ -1,7 +1,7 @@
 import m from "mithril";
 import SimplePage from "@/component/simple-page";
 
-const Page: m.ClosureComponent = () => {
+const about: m.ClosureComponent = () => {
   return {
     view: () =>
       m(
@@ -24,4 +24,4 @@ const Page: m.ClosureComponent = () => {
   };
 };
 
-export default Page;
+export default about;

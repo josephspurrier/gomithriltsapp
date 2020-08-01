@@ -12,8 +12,6 @@ export default {
   decorators: [withKnobs, withA11y],
 };
 
-// FIXME: I don't think the flash is working.
-
 export const login = (): m.Component => ({
   oninit: () => {
     const shouldFail = boolean("Fail", false);

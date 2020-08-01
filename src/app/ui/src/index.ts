@@ -10,8 +10,6 @@ import CookieStore from "@/module/cookiestore";
 import "~/node_modules/@fortawesome/fontawesome-free/js/all.js";
 import "~/style/main.scss";
 
-m.route.prefix = "";
-
 m.route(document.body, "/", {
   "/": {
     onmatch: () => {

@@ -1,4 +1,5 @@
 import m from "mithril";
+import randId from "@/module/random";
 
 // Create a flash message class with Bulma.
 // http://bulma.io/documentation/components/message/
@@ -24,12 +25,6 @@ const flash = {
   list: [] as FlashMessage[],
   timeout: 4000, // milliseconds
   prepend: false,
-  randId: (): string => {
-    const min = 1;
-    const max = 99999999999999;
-    const randomNum = Math.random() * (max - min) + min;
-    return Math.floor(randomNum).toString();
-  },
   success: (message: string): void => {
     flash.addFlash(message, MessageType.success);
   },
@@ -101,7 +96,7 @@ const flash = {
       },
       [
         flash.list.map((i) =>
-          m("div", { class: `notification ${i.style}`, key: flash.randId() }, [
+          m("div", { class: `notification ${i.style}`, key: randId() }, [
             i.message,
             m("button", {
               class: "delete",

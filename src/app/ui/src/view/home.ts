@@ -1,6 +1,6 @@
 import m from "mithril";
 
-const Page: m.ClosureComponent = () => {
+const home: m.ClosureComponent = () => {
   return {
     view: () =>
       m("div", [
@@ -22,4 +22,4 @@ const Page: m.ClosureComponent = () => {
   };
 };
 
-export default Page;
+export default home;

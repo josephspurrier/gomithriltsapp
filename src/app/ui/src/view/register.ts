@@ -1,14 +1,14 @@
 import m from "mithril";
 import UserRegister from "@/store/userregister";
 
-interface defaultAttrs {
+interface Attrs {
   firstName?: string;
   lastName?: string;
   email?: string;
   password?: string;
 }
 
-const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
+const register: m.ClosureComponent<Attrs> = ({ attrs }) => {
   // Prefill the fields.
   UserRegister.user.first_name = attrs.firstName || "";
   UserRegister.user.last_name = attrs.lastName || "";
@@ -127,4 +127,4 @@ const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
   };
 };
 
-export default Page;
+export default register;
