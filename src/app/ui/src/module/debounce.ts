@@ -1,4 +1,4 @@
-const debounce = {
+export const debounce = {
   m: new Map<string, ReturnType<typeof setTimeout>>(),
   run(id: string, func: () => void, timeout: number): void {
     const timer = this.m.get(id);
@@ -8,5 +8,3 @@ const debounce = {
     this.m.set(id, setTimeout(func, timeout));
   },
 };
-
-export default debounce;

@@ -1,5 +1,5 @@
 import m from "mithril";
-import Debounce from "@/module/debounce";
+import { debounce } from "@/module/debounce";
 import NoteStore from "@/store/notestore";
 
 interface Attrs {
@@ -26,7 +26,7 @@ const note = (): m.Component<Attrs, State> => {
                 value: attrs.message,
                 oninput: attrs.oninput,
                 onkeyup: function (e: { target: HTMLInputElement }) {
-                  Debounce.run(
+                  debounce.run(
                     attrs.id,
                     () => {
                       NoteStore.runUpdate(attrs.id, e.target.value);

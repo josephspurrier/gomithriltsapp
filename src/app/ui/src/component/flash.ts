@@ -1,5 +1,5 @@
 import m from "mithril";
-import randId from "@/module/random";
+import { randId } from "@/module/random";
 
 // Create a flash message class with Bulma.
 // http://bulma.io/documentation/components/message/

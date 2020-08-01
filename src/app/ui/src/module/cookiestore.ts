@@ -1,6 +1,6 @@
 import Cookie from "js-cookie";
 
-interface Auth {
+export interface Auth {
   accessToken: string;
   loggedIn: boolean;
 }
