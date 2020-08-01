@@ -1,16 +1,15 @@
-const submit = {
-  disabled: false,
-  submitText: "Submitting...",
-  start: function (event: { preventDefault: () => void }): void {
-    event.preventDefault();
-    submit.disabled = true;
-  },
-  finish: function (): void {
-    submit.disabled = false;
-  },
-  text: function (s: string): string {
-    return !submit.disabled ? s : submit.submitText;
-  },
+let disabled = false;
+const submitText = "Submitting...";
+
+export const start = function (event: { preventDefault: () => void }): void {
+  event.preventDefault();
+  disabled = true;
 };
 
-export default submit;
+export const finish = function (): void {
+  disabled = false;
+};
+
+export const text = function (s: string): string {
+  return !disabled ? s : submitText;
+};

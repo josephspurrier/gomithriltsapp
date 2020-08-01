@@ -1,6 +1,6 @@
 import m from "mithril";
 import Flash from "@/component/flash";
-import CookieStore from "@/module/cookiestore";
+import { bearerToken } from "@/module/cookiestore";
 
 export interface Note {
   id: string;
@@ -38,7 +38,7 @@ const noteStore = {
       method: "POST",
       url: "/api/v1/note",
       headers: {
-        Authorization: CookieStore.bearerToken(),
+        Authorization: bearerToken(),
       },
       body: noteStore.current,
     });
@@ -49,7 +49,7 @@ const noteStore = {
         method: "GET",
         url: "/api/v1/note",
         headers: {
-          Authorization: CookieStore.bearerToken(),
+          Authorization: bearerToken(),
         },
       })
       .then((raw: unknown) => {
@@ -71,7 +71,7 @@ const noteStore = {
       method: "PUT",
       url: "/api/v1/note/" + id,
       headers: {
-        Authorization: CookieStore.bearerToken(),
+        Authorization: bearerToken(),
       },
       body: { message: text },
     });
@@ -94,7 +94,7 @@ const noteStore = {
       method: "DELETE",
       url: "/api/v1/note/" + id,
       headers: {
-        Authorization: CookieStore.bearerToken(),
+        Authorization: bearerToken(),
       },
     });
   },

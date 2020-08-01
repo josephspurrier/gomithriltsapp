@@ -1,7 +1,7 @@
 import m from "mithril";
-import Submit from "@/module/submit";
+import { start, finish } from "@/module/submit";
 import Flash from "@/component/flash";
-import CookieStore from "@/module/cookiestore";
+import { save, Auth } from "@/module/cookiestore";
 
 export interface User {
   email: string;
@@ -27,19 +27,19 @@ export const login = (body: User): Promise<void> => {
 };
 
 export const submit = (e: InputEvent, u: User): Promise<void> => {
-  Submit.start(e);
+  start(e);
 
   return login(u)
     .then((raw: unknown) => {
-      Submit.finish();
+      finish();
 
       const data = raw as LoginResponse;
       if (data) {
-        const auth = {
+        const auth: Auth = {
           accessToken: data.token,
           loggedIn: true,
         };
-        CookieStore.save(auth);
+        save(auth);
 
         Flash.success("Login successful.");
       } else {
@@ -49,7 +49,7 @@ export const submit = (e: InputEvent, u: User): Promise<void> => {
       m.route.set("/");
     })
     .catch((err: XMLHttpRequest) => {
-      Submit.finish();
+      finish();
       Flash.warning((err.response as ErrorResponse).message);
       throw err;
     });

@@ -1,5 +1,5 @@
 import m from "mithril";
-import Submit from "@/module/submit";
+import { start, finish } from "@/module/submit";
 import Flash from "@/component/flash";
 
 export interface User {
@@ -18,17 +18,17 @@ export const register = (body: User): Promise<void> => {
 };
 
 export const submit = (e: InputEvent, u: User): Promise<void> => {
-  Submit.start(e);
+  start(e);
 
   return register(u)
     .then(() => {
-      Submit.finish();
+      finish();
 
       Flash.success("User registered.");
       m.route.set("/login");
     })
     .catch((err: XMLHttpRequest) => {
-      Submit.finish();
+      finish();
       Flash.warning(err.response.message);
       throw err;
     });
