@@ -1,7 +1,7 @@
 import m from "mithril";
 import { isLoggedIn, clear } from "@/module/cookiestore";
 
-const menu = (): m.Component => {
+export const Menu = (): m.Component => {
   const logout = () => {
     clear();
     m.route.set("/");
@@ -101,5 +101,3 @@ const menu = (): m.Component => {
       ]),
   };
 };
-
-export default menu;

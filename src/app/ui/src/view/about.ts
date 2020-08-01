@@ -1,5 +1,5 @@
 import m from "mithril";
-import SimplePage from "@/component/simple-page";
+import { SimplePage } from "@/component/simple-page";
 
 export const AboutPage: m.ClosureComponent = () => {
   return {

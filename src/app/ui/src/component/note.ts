@@ -12,7 +12,7 @@ interface State {
   saving: string;
 }
 
-const note = (): m.Component<Attrs, State> => {
+export const Note = (): m.Component<Attrs, State> => {
   return {
     view: ({ attrs, state }) =>
       m("li", { style: { "margin-top": "12px" } }, [
@@ -74,5 +74,3 @@ const note = (): m.Component<Attrs, State> => {
       ]),
   };
 };
-
-export default note;

@@ -5,7 +5,7 @@ interface Attrs {
   description?: string;
 }
 
-const simplePage: m.Component<Attrs> = {
+export const SimplePage: m.Component<Attrs> = {
   view: ({ attrs, children }) =>
     m("div", [
       m("section", { class: "section" }, [
@@ -17,5 +17,3 @@ const simplePage: m.Component<Attrs> = {
       ]),
     ]),
 };
-
-export default simplePage;

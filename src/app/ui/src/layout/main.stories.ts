@@ -1,19 +1,19 @@
 import m from "mithril";
 import { withKnobs, text } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
-import LayoutMain from "./main";
-import SimplePage from "@/component/simple-page";
+import { MainLayout } from "./main";
+import { SimplePage } from "@/component/simple-page";
 
 export default {
   title: "Component/Layout Main",
-  component: LayoutMain,
+  component: MainLayout,
   decorators: [withKnobs, withA11y],
 };
 
 export const simplePage = (): m.Component => ({
   view: () => {
     return m(
-      LayoutMain,
+      MainLayout,
       m(
         SimplePage,
         {

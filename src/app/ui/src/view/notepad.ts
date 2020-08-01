@@ -1,6 +1,6 @@
 import m from "mithril";
 import NoteStore, { Note as INote } from "@/store/notestore";
-import Note from "@/component/note";
+import { Note } from "@/component/note";
 
 export const NotepadPage: m.ClosureComponent = () => {
   NoteStore.load();

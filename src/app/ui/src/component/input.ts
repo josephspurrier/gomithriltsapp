@@ -9,7 +9,7 @@ interface Attrs {
   oninput: (e: { target: HTMLInputElement }) => void;
 }
 
-const input = (): m.Component<Attrs> => {
+export const Input = (): m.Component<Attrs> => {
   return {
     view: ({ attrs }) =>
       m("div", { class: "field" }, [
@@ -28,5 +28,3 @@ const input = (): m.Component<Attrs> => {
       ]),
   };
 };
-
-export default input;

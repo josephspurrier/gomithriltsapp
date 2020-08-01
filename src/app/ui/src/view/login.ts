@@ -1,6 +1,6 @@
 import m from "mithril";
 import { submit, submitText, User } from "@/store/userlogin";
-import Input from "@/component/input";
+import { Input } from "@/component/input";
 
 interface Attrs {
   email?: string;
