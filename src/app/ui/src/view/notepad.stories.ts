@@ -1,7 +1,7 @@
 import m from "mithril";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
-import NotepadPage from "@/view/notepad";
+import { NotepadPage } from "@/view/notepad";
 import { Note } from "@/store/notestore";
 import { randId } from "@/module/random";
 import Flash from "@/component/flash";

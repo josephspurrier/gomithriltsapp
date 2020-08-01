@@ -2,7 +2,7 @@ import m from "mithril";
 import NoteStore, { Note as INote } from "@/store/notestore";
 import Note from "@/component/note";
 
-const notepad: m.ClosureComponent = () => {
+export const NotepadPage: m.ClosureComponent = () => {
   NoteStore.load();
 
   return {
@@ -71,5 +71,3 @@ const notepad: m.ClosureComponent = () => {
       ]),
   };
 };
-
-export default notepad;

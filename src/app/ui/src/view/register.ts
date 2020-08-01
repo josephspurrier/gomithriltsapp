@@ -8,7 +8,7 @@ interface Attrs {
   password?: string;
 }
 
-const register: m.ClosureComponent<Attrs> = ({ attrs }) => {
+export const RegisterPage: m.ClosureComponent<Attrs> = ({ attrs }) => {
   // Prefill the fields.
   UserRegister.user.first_name = attrs.firstName || "";
   UserRegister.user.last_name = attrs.lastName || "";
@@ -126,5 +126,3 @@ const register: m.ClosureComponent<Attrs> = ({ attrs }) => {
       ]),
   };
 };
-
-export default register;

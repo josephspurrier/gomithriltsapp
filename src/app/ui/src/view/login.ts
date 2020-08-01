@@ -7,7 +7,7 @@ interface Attrs {
   password?: string;
 }
 
-const login: m.ClosureComponent<Attrs> = ({ attrs }) => {
+export const LoginPage: m.ClosureComponent<Attrs> = ({ attrs }) => {
   let user = {
     email: "",
     password: "",
@@ -108,5 +108,3 @@ const login: m.ClosureComponent<Attrs> = ({ attrs }) => {
       ]),
   };
 };
-
-export default login;

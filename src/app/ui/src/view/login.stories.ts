@@ -1,7 +1,7 @@
 import m from "mithril";
 import { withKnobs, boolean, text } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
-import LoginPage from "@/view/login";
+import { LoginPage } from "@/view/login";
 import Flash from "@/component/flash";
 import { rest } from "msw";
 import { worker } from "@/mock/browser";

@@ -1,7 +1,7 @@
 import m from "mithril";
 import SimplePage from "@/component/simple-page";
 
-const error: m.ClosureComponent = () => {
+export const ErrorPage: m.ClosureComponent = () => {
   return {
     view: () =>
       m(SimplePage, {
@@ -10,5 +10,3 @@ const error: m.ClosureComponent = () => {
       }),
   };
 };
-
-export default error;
