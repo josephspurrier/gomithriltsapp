@@ -93,7 +93,7 @@ export const dark = (): m.Component => ({
   view: () => m(Flash),
 });
 
-export const Action = (): m.Component => ({
+export const action = (): m.Component => ({
   oninit: () => {
     Flash.timeout = number("Timeout (milliseconds)", 2000);
     Flash.prepend = boolean("Prepend", false);

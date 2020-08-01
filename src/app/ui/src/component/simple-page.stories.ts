@@ -9,7 +9,7 @@ export default {
   decorators: [withKnobs, withA11y],
 };
 
-export const WithContent = (): m.Component => ({
+export const withContent = (): m.Component => ({
   view: () =>
     m(
       SimplePage,

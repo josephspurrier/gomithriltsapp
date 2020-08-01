@@ -1,7 +1,7 @@
 import m from "mithril";
 import CookieStore from "@/module/cookiestore";
 
-const View = (): m.Component => {
+const menu = (): m.Component => {
   const logout = () => {
     CookieStore.clear();
     m.route.set("/");
@@ -102,4 +102,4 @@ const View = (): m.Component => {
   };
 };
 
-export default View;
+export default menu;

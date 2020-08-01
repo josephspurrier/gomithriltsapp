@@ -1,11 +1,11 @@
 import m from "mithril";
 
-interface defaultAttrs {
+interface Attrs {
   title?: string;
   description?: string;
 }
 
-const Page: m.Component<defaultAttrs> = {
+const simplePage: m.Component<Attrs> = {
   view: ({ attrs, children }) =>
     m("div", [
       m("section", { class: "section" }, [
@@ -18,4 +18,4 @@ const Page: m.Component<defaultAttrs> = {
     ]),
 };
 
-export default Page;
+export default simplePage;

@@ -1,6 +1,6 @@
 import m from "mithril";
 
-interface defaultAttrs {
+interface Attrs {
   label: string;
   name: string;
   type?: string;
@@ -9,7 +9,7 @@ interface defaultAttrs {
   oninput: (e: { target: HTMLInputElement }) => void;
 }
 
-const View = (): m.Component<defaultAttrs> => {
+const input = (): m.Component<Attrs> => {
   return {
     view: ({ attrs }) =>
       m("div", { class: "field" }, [
@@ -29,4 +29,4 @@ const View = (): m.Component<defaultAttrs> => {
   };
 };
 
-export default View;
+export default input;

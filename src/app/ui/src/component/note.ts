@@ -2,17 +2,17 @@ import m from "mithril";
 import Debounce from "@/module/debounce";
 import NoteStore from "@/store/notestore";
 
-interface defaultAttrs {
+interface Attrs {
   id: string;
   message?: string;
   oninput: (e: { target: HTMLInputElement }) => void;
 }
 
-interface defaultState {
+interface State {
   saving: string;
 }
 
-const View = (): m.Component<defaultAttrs, defaultState> => {
+const note = (): m.Component<Attrs, State> => {
   return {
     view: ({ attrs, state }) =>
       m("li", { style: { "margin-top": "12px" } }, [
@@ -75,4 +75,4 @@ const View = (): m.Component<defaultAttrs, defaultState> => {
   };
 };
 
-export default View;
+export default note;
