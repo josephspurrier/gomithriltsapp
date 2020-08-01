@@ -26,7 +26,7 @@ const note = (): m.Component<Attrs, State> => {
                 value: attrs.message,
                 oninput: attrs.oninput,
                 onkeyup: function (e: { target: HTMLInputElement }) {
-                  debounce.run(
+                  debounce(
                     attrs.id,
                     () => {
                       NoteStore.runUpdate(attrs.id, e.target.value);
