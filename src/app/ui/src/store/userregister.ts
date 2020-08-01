@@ -1,5 +1,5 @@
 import m from "mithril";
-import { start, finish } from "@/module/submit";
+import { start, finish, text } from "@/module/submit";
 import Flash from "@/component/flash";
 
 export interface User {
@@ -15,6 +15,10 @@ export const register = (body: User): Promise<void> => {
     url: "/api/v1/register",
     body,
   });
+};
+
+export const submitText = (s: string): string => {
+  return text(s);
 };
 
 export const submit = (e: InputEvent, u: User): Promise<void> => {

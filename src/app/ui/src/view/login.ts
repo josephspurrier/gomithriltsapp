@@ -1,5 +1,5 @@
 import m from "mithril";
-import { submit, User } from "@/store/userlogin";
+import { submit, submitText, User } from "@/store/userlogin";
 import Input from "@/component/input";
 
 interface Attrs {
@@ -77,7 +77,7 @@ export const LoginPage: m.ClosureComponent<Attrs> = ({ attrs }) => {
                         type: "submit",
                         "data-cy": "submit",
                       },
-                      "Submit"
+                      submitText("Submit")
                     ),
                   ]),
                   m("p", { class: "control" }, [
@@ -97,7 +97,7 @@ export const LoginPage: m.ClosureComponent<Attrs> = ({ attrs }) => {
                     m(
                       m.route.Link,
                       { class: "button is-light", href: "/register" },
-                      " Register "
+                      "Register"
                     ),
                   ]),
                 ]),

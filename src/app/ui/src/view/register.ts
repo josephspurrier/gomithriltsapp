@@ -1,5 +1,5 @@
 import m from "mithril";
-import { submit, User } from "@/store/userregister";
+import { submit, submitText, User } from "@/store/userregister";
 
 interface Attrs {
   firstName?: string;
@@ -129,7 +129,7 @@ export const RegisterPage: m.ClosureComponent<Attrs> = ({ attrs }) => {
                         type: "submit",
                         "data-cy": "submit",
                       },
-                      "Create Account"
+                      submitText("Create Account")
                     ),
                   ]),
                   m("p", { class: "control" }, [
