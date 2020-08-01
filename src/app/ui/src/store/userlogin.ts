@@ -3,7 +3,7 @@ import Submit from "@/module/submit";
 import Flash from "@/component/flash";
 import CookieStore from "@/module/cookiestore";
 
-interface User {
+export interface User {
   email: string;
   password: string;
 }
@@ -18,15 +18,18 @@ interface ErrorResponse {
   message: string;
 }
 
-const userLogin = (e: InputEvent, body: User): Promise<void> => {
+export const login = (body: User): Promise<void> => {
+  return m.request({
+    method: "POST",
+    url: "/api/v1/login",
+    body,
+  });
+};
+
+export const submit = (e: InputEvent, u: User): Promise<void> => {
   Submit.start(e);
 
-  return m
-    .request({
-      method: "POST",
-      url: "/api/v1/login",
-      body,
-    })
+  return login(u)
     .then((raw: unknown) => {
       Submit.finish();
 
@@ -48,7 +51,6 @@ const userLogin = (e: InputEvent, body: User): Promise<void> => {
     .catch((err: XMLHttpRequest) => {
       Submit.finish();
       Flash.warning((err.response as ErrorResponse).message);
+      throw err;
     });
 };
-
-export default userLogin;

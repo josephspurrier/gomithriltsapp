@@ -2,45 +2,34 @@ import m from "mithril";
 import Submit from "@/module/submit";
 import Flash from "@/component/flash";
 
-const userRegister = {
-  user: {
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-  },
-  clear: (): void => {
-    userRegister.user = {
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-    };
-  },
-  register: (): Promise<void> => {
-    return m.request({
-      method: "POST",
-      url: "/api/v1/register",
-      body: userRegister.user,
-    });
-  },
-  submit: (e: InputEvent): void => {
-    Submit.start(e);
+export interface User {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+}
 
-    userRegister
-      .register()
-      .then(() => {
-        userRegister.clear();
-        Submit.finish();
-
-        Flash.success("User registered.");
-        m.route.set("/login");
-      })
-      .catch((err) => {
-        Submit.finish();
-        Flash.warning(err.response.message);
-      });
-  },
+export const register = (body: User): Promise<void> => {
+  return m.request({
+    method: "POST",
+    url: "/api/v1/register",
+    body,
+  });
 };
 
-export default userRegister;
+export const submit = (e: InputEvent, u: User): Promise<void> => {
+  Submit.start(e);
+
+  return register(u)
+    .then(() => {
+      Submit.finish();
+
+      Flash.success("User registered.");
+      m.route.set("/login");
+    })
+    .catch((err: XMLHttpRequest) => {
+      Submit.finish();
+      Flash.warning(err.response.message);
+      throw err;
+    });
+};

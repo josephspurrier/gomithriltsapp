@@ -1,5 +1,5 @@
 import m from "mithril";
-import UserLogin from "@/store/userlogin";
+import { submit, User } from "@/store/userlogin";
 import Input from "@/component/input";
 
 interface Attrs {
@@ -8,7 +8,7 @@ interface Attrs {
 }
 
 export const LoginPage: m.ClosureComponent<Attrs> = ({ attrs }) => {
-  let user = {
+  let user: User = {
     email: "",
     password: "",
   };
@@ -42,7 +42,7 @@ export const LoginPage: m.ClosureComponent<Attrs> = ({ attrs }) => {
               {
                 name: "login",
                 onsubmit: function (e: InputEvent) {
-                  UserLogin(e, user).then(() => {
+                  submit(e, user).then(() => {
                     clear();
                   });
                 },
