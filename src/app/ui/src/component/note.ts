@@ -1,11 +1,12 @@
 import m from "mithril";
 import { debounce } from "@/module/debounce";
-import NoteStore from "@/store/notestore";
+import * as NoteStore from "@/store/notestore";
 
 interface Attrs {
   id: string;
   message?: string;
   oninput: (e: { target: HTMLInputElement }) => void;
+  removeNote: (id: string) => void;
 }
 
 interface State {
@@ -51,7 +52,9 @@ export const Note = (): m.Component<Attrs, State> => {
                   class: "level-item",
                   title: "Delete note",
                   onclick: function () {
-                    NoteStore.runDelete(attrs.id);
+                    NoteStore.runDelete(attrs.id).then(() => {
+                      attrs.removeNote(attrs.id);
+                    });
                   },
                 },
                 [

@@ -11,93 +11,80 @@ interface NoteResponse {
   notes: Note[];
 }
 
-const noteStore = {
-  current: {} as Note,
-  list: [] as Note[],
-  clear: (): void => {
-    noteStore.current = {
-      id: "",
-      message: "",
-    };
-  },
-  submit: (): void => {
-    noteStore
-      .create()
-      .then(() => {
-        Flash.success("Note created.");
-        // This could be optimized instead of reloading.
-        noteStore.load();
-        noteStore.clear();
-      })
-      .catch((err) => {
-        Flash.warning(err.response.message);
-      });
-  },
-  create: (): Promise<void | m.Static> => {
-    return m.request({
-      method: "POST",
+export const submit = (n: Note): Promise<void> => {
+  return create(n)
+    .then(() => {
+      Flash.success("Note created.");
+    })
+    .catch((err) => {
+      Flash.warning(err.response.message);
+      throw err;
+    });
+};
+
+export const create = (body: Note): Promise<void> => {
+  return m.request({
+    method: "POST",
+    url: "/api/v1/note",
+    headers: {
+      Authorization: bearerToken(),
+    },
+    body,
+  });
+};
+
+export const load = (): Promise<Note[]> => {
+  return m
+    .request({
+      method: "GET",
       url: "/api/v1/note",
       headers: {
         Authorization: bearerToken(),
       },
-      body: noteStore.current,
+    })
+    .then((raw: unknown) => {
+      const result = raw as NoteResponse;
+      if (result) {
+        return result.notes;
+      }
+      Flash.failed("Data returned is not valid.");
+      return [] as Note[];
     });
-  },
-  load: (): Promise<void | m.Static> => {
-    return m
-      .request({
-        method: "GET",
-        url: "/api/v1/note",
-        headers: {
-          Authorization: bearerToken(),
-        },
-      })
-      .then((raw: unknown) => {
-        const result = raw as NoteResponse;
-        if (result) {
-          noteStore.list = result.notes;
-        } else {
-          Flash.failed("Data returned is not valid.");
-        }
-      });
-  },
-  runUpdate: (id: string, value: string): void => {
-    noteStore.update(id, value).catch((e) => {
-      Flash.warning("Could not update note: " + e.response.message);
-    });
-  },
-  update: (id: string, text: string): Promise<m.Static> => {
-    return m.request({
-      method: "PUT",
-      url: "/api/v1/note/" + id,
-      headers: {
-        Authorization: bearerToken(),
-      },
-      body: { message: text },
-    });
-  },
-  runDelete: (id: string): void => {
-    noteStore
-      .delete(id)
-      .then(() => {
-        Flash.success("Note deleted.");
-        noteStore.list = noteStore.list.filter((i) => {
-          return i.id !== id;
-        });
-      })
-      .catch((err) => {
-        Flash.warning("Could not delete: " + err.response.message);
-      });
-  },
-  delete: (id: string): Promise<m.Static> => {
-    return m.request({
-      method: "DELETE",
-      url: "/api/v1/note/" + id,
-      headers: {
-        Authorization: bearerToken(),
-      },
-    });
-  },
 };
 
-export default noteStore;
+export const runUpdate = (id: string, value: string): void => {
+  update(id, value).catch((e) => {
+    Flash.warning("Could not update note: " + e.response.message);
+  });
+};
+
+export const update = (id: string, text: string): Promise<void> => {
+  return m.request({
+    method: "PUT",
+    url: "/api/v1/note/" + id,
+    headers: {
+      Authorization: bearerToken(),
+    },
+    body: { message: text },
+  });
+};
+
+export const runDelete = (id: string): Promise<void> => {
+  return deleteNote(id)
+    .then(() => {
+      Flash.success("Note deleted.");
+    })
+    .catch((err) => {
+      Flash.warning("Could not delete: " + err.response.message);
+    });
+};
+
+export const deleteNote = (id: string): Promise<void> => {
+  return m.request({
+    method: "DELETE",
+    url: "/api/v1/note/" + id,
+    headers: {
+      Authorization: bearerToken(),
+    },
+  });
+};

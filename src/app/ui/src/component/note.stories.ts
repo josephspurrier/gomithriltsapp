@@ -63,6 +63,9 @@ export const noteView = (): m.Component => ({
           oninput: function (): void {
             console.log("changed");
           },
+          removeNote: function (): void {
+            console.log("removed");
+          },
         }),
       ]),
       m(Flash),

@@ -1,9 +1,25 @@
 import m from "mithril";
-import NoteStore, { Note as INote } from "@/store/notestore";
+import * as NoteStore from "@/store/notestore";
 import { Note } from "@/component/note";
 
 export const NotepadPage: m.ClosureComponent = () => {
-  NoteStore.load();
+  let list = [] as NoteStore.Note[];
+
+  NoteStore.load().then((arr: NoteStore.Note[]) => {
+    list = arr;
+  });
+
+  let current: NoteStore.Note = {
+    id: "",
+    message: "",
+  };
+
+  const clear = (): void => {
+    current = {
+      id: "",
+      message: "",
+    };
+  };
 
   return {
     view: () =>
@@ -23,12 +39,18 @@ export const NotepadPage: m.ClosureComponent = () => {
                     if (e.key !== "Enter") {
                       return;
                     }
-                    NoteStore.submit();
+                    NoteStore.submit(current).then(() => {
+                      // TODO: This could be optimized instead of reloading all.
+                      NoteStore.load().then((arr: NoteStore.Note[]) => {
+                        list = arr;
+                      });
+                      clear();
+                    });
                   },
                   oninput: function (e: { target: HTMLInputElement }) {
-                    NoteStore.current.message = e.target.value;
+                    current.message = e.target.value;
                   },
-                  value: NoteStore.current.message,
+                  value: current.message,
                 }),
               ]),
             ]),
@@ -55,13 +77,18 @@ export const NotepadPage: m.ClosureComponent = () => {
           ]),
           m("div", [
             m("ul", { id: "listTodo" }, [
-              NoteStore.list.map((n: INote) =>
+              list.map((n: NoteStore.Note) =>
                 m(Note, {
                   key: n.id,
                   id: n.id,
                   message: n.message,
                   oninput: function (e: { target: HTMLInputElement }) {
                     n.message = e.target.value;
+                  },
+                  removeNote: function (id: string) {
+                    list = list.filter((i) => {
+                      return i.id !== id;
+                    });
                   },
                 })
               ),
