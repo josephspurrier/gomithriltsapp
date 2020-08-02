@@ -1,7 +1,7 @@
 import m from "mithril";
 import { withKnobs, text, select } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
-import Input from "./input";
+import { Input } from "./input";
 
 export default {
   title: "Component/Input",

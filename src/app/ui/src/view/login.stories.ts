@@ -1,8 +1,8 @@
 import m from "mithril";
 import { withKnobs, boolean, text } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
-import LoginPage from "@/view/login";
-import Flash from "@/component/flash";
+import { LoginPage } from "@/view/login";
+import { Flash } from "@/component/flash";
 import { rest } from "msw";
 import { worker } from "@/mock/browser";
 
@@ -11,8 +11,6 @@ export default {
   component: LoginPage,
   decorators: [withKnobs, withA11y],
 };
-
-// FIXME: I don't think the flash is working.
 
 export const login = (): m.Component => ({
   oninit: () => {

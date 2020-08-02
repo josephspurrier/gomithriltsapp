@@ -8,7 +8,7 @@ import {
   boolean,
 } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
-import Flash from "@/component/flash";
+import { Flash } from "@/component/flash";
 
 export default {
   title: "Component/Flash",
@@ -93,7 +93,7 @@ export const dark = (): m.Component => ({
   view: () => m(Flash),
 });
 
-export const Action = (): m.Component => ({
+export const action = (): m.Component => ({
   oninit: () => {
     Flash.timeout = number("Timeout (milliseconds)", 2000);
     Flash.prepend = boolean("Prepend", false);

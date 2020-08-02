@@ -1,8 +1,10 @@
 import m from "mithril";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
-import NotepadPage from "@/view/notepad";
-import Flash from "@/component/flash";
+import { NotepadPage } from "@/view/notepad";
+import { Note } from "@/store/notestore";
+import { randId } from "@/module/random";
+import { Flash } from "@/component/flash";
 import { rest } from "msw";
 import { worker } from "@/mock/browser";
 
@@ -12,20 +14,8 @@ export default {
   decorators: [withKnobs, withA11y],
 };
 
-interface Note {
-  id: string;
+interface MessageReponse {
   message: string;
-}
-
-interface Message {
-  message: string;
-}
-
-function randId(): string {
-  const min = 10000;
-  const max = 99999999999999;
-  const randomNum = Math.random() * (max - min) + min;
-  return Math.floor(randomNum).toString();
 }
 
 export const notepad = (): m.Component => ({
@@ -81,7 +71,7 @@ export const notepad = (): m.Component => ({
               })
             );
           } else {
-            const m = req.body as Message;
+            const m = req.body as MessageReponse;
             const id = randId();
             notes.push({ id: id, message: m.message });
             return res(

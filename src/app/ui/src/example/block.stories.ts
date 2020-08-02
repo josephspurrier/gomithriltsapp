@@ -2,7 +2,7 @@ import m from "mithril";
 import { action } from "@storybook/addon-actions";
 import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
-import Block from "@/example/block";
+import { Block } from "@/example/block";
 
 export default {
   title: "Example/Block",
@@ -10,7 +10,7 @@ export default {
   decorators: [withKnobs, withA11y],
 };
 
-export const Button = (): m.Component => ({
+export const button = (): m.Component => ({
   view: () =>
     m(
       "button",
@@ -25,7 +25,7 @@ export const Button = (): m.Component => ({
     ),
 });
 
-export const DynamicText = (): m.Component => ({
+export const dynamicText = (): m.Component => ({
   view: () => {
     const name = text("Name", "Joe");
     const age = number("Age", 32);
@@ -35,7 +35,7 @@ export const DynamicText = (): m.Component => ({
   },
 });
 
-export const Long = (): m.Component => {
+export const long = (): m.Component => {
   return {
     view: () => m(Block, text("Text", "Long")),
   };

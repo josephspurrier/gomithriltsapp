@@ -1,101 +1,90 @@
 import m from "mithril";
-import Flash from "@/component/flash";
-import CookieStore from "@/module/cookiestore";
+import { Flash } from "@/component/flash";
+import { bearerToken } from "@/module/cookiestore";
 
-interface note {
+export interface Note {
   id: string;
   message: string;
 }
 
-interface noteResponse {
-  notes: note[];
+interface NoteResponse {
+  notes: Note[];
 }
 
-const NoteStore = {
-  current: {} as note,
-  list: [] as note[],
-  clear: (): void => {
-    NoteStore.current = {
-      id: "",
-      message: "",
-    };
-  },
-  submit: (): void => {
-    NoteStore.create()
-      .then(() => {
-        Flash.success("Note created.");
-        // This could be optimized instead of reloading.
-        NoteStore.load();
-        NoteStore.clear();
-      })
-      .catch((err) => {
-        Flash.warning(err.response.message);
-      });
-  },
-  create: (): Promise<void | m.Static> => {
-    return m.request({
-      method: "POST",
-      url: "/api/v1/note",
-      headers: {
-        Authorization: CookieStore.bearerToken(),
-      },
-      body: NoteStore.current,
+export const submit = (n: Note): Promise<void> => {
+  return create(n)
+    .then(() => {
+      Flash.success("Note created.");
+    })
+    .catch((err) => {
+      Flash.warning(err.response.message);
+      throw err;
     });
-  },
-  load: (): Promise<void | m.Static> => {
-    return m
-      .request({
-        method: "GET",
-        url: "/api/v1/note",
-        headers: {
-          Authorization: CookieStore.bearerToken(),
-        },
-      })
-      .then((raw: unknown) => {
-        const result = raw as noteResponse;
-        if (result) {
-          NoteStore.list = result.notes;
-        } else {
-          Flash.failed("Data returned is not valid.");
-        }
-      });
-  },
-  runUpdate: (id: string, value: string): void => {
-    NoteStore.update(id, value).catch((e) => {
-      Flash.warning("Could not update note: " + e.response.message);
-    });
-  },
-  update: (id: string, text: string): Promise<m.Static> => {
-    return m.request({
-      method: "PUT",
-      url: "/api/v1/note/" + id,
-      headers: {
-        Authorization: CookieStore.bearerToken(),
-      },
-      body: { message: text },
-    });
-  },
-  runDelete: (id: string): void => {
-    NoteStore.delete(id)
-      .then(() => {
-        Flash.success("Note deleted.");
-        NoteStore.list = NoteStore.list.filter((i) => {
-          return i.id !== id;
-        });
-      })
-      .catch((err) => {
-        Flash.warning("Could not delete: " + err.response.message);
-      });
-  },
-  delete: (id: string): Promise<m.Static> => {
-    return m.request({
-      method: "DELETE",
-      url: "/api/v1/note/" + id,
-      headers: {
-        Authorization: CookieStore.bearerToken(),
-      },
-    });
-  },
 };
 
-export default NoteStore;
+export const create = (body: Note): Promise<void> => {
+  return m.request({
+    method: "POST",
+    url: "/api/v1/note",
+    headers: {
+      Authorization: bearerToken(),
+    },
+    body,
+  });
+};
+
+export const load = (): Promise<Note[]> => {
+  return m
+    .request({
+      method: "GET",
+      url: "/api/v1/note",
+      headers: {
+        Authorization: bearerToken(),
+      },
+    })
+    .then((raw: unknown) => {
+      const result = raw as NoteResponse;
+      if (result) {
+        return result.notes;
+      }
+      Flash.failed("Data returned is not valid.");
+      return [] as Note[];
+    });
+};
+
+export const runUpdate = (id: string, value: string): void => {
+  update(id, value).catch((e) => {
+    Flash.warning("Could not update note: " + e.response.message);
+  });
+};
+
+export const update = (id: string, text: string): Promise<void> => {
+  return m.request({
+    method: "PUT",
+    url: "/api/v1/note/" + id,
+    headers: {
+      Authorization: bearerToken(),
+    },
+    body: { message: text },
+  });
+};
+
+export const runDelete = (id: string): Promise<void> => {
+  return deleteNote(id)
+    .then(() => {
+      Flash.success("Note deleted.");
+    })
+    .catch((err) => {
+      Flash.warning("Could not delete: " + err.response.message);
+    });
+};
+
+export const deleteNote = (id: string): Promise<void> => {
+  return m.request({
+    method: "DELETE",
+    url: "/api/v1/note/" + id,
+    headers: {
+      Authorization: bearerToken(),
+    },
+  });
+};

@@ -1,18 +1,19 @@
 import m from "mithril";
-import Debounce from "@/module/debounce";
-import NoteStore from "@/store/notestore";
+import { debounce } from "@/module/debounce";
+import * as NoteStore from "@/store/notestore";
 
-interface defaultAttrs {
+interface Attrs {
   id: string;
   message?: string;
   oninput: (e: { target: HTMLInputElement }) => void;
+  removeNote: (id: string) => void;
 }
 
-interface defaultState {
+interface State {
   saving: string;
 }
 
-const View = (): m.Component<defaultAttrs, defaultState> => {
+export const Note = (): m.Component<Attrs, State> => {
   return {
     view: ({ attrs, state }) =>
       m("li", { style: { "margin-top": "12px" } }, [
@@ -26,7 +27,7 @@ const View = (): m.Component<defaultAttrs, defaultState> => {
                 value: attrs.message,
                 oninput: attrs.oninput,
                 onkeyup: function (e: { target: HTMLInputElement }) {
-                  Debounce.run(
+                  debounce(
                     attrs.id,
                     () => {
                       NoteStore.runUpdate(attrs.id, e.target.value);
@@ -51,7 +52,9 @@ const View = (): m.Component<defaultAttrs, defaultState> => {
                   class: "level-item",
                   title: "Delete note",
                   onclick: function () {
-                    NoteStore.runDelete(attrs.id);
+                    NoteStore.runDelete(attrs.id).then(() => {
+                      attrs.removeNote(attrs.id);
+                    });
                   },
                 },
                 [
@@ -74,5 +77,3 @@ const View = (): m.Component<defaultAttrs, defaultState> => {
       ]),
   };
 };
-
-export default View;

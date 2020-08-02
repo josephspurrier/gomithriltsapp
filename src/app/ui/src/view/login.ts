@@ -1,14 +1,14 @@
 import m from "mithril";
-import UserLogin from "@/store/userlogin";
-import Input from "@/component/input";
+import { submit, submitText, User } from "@/store/userlogin";
+import { Input } from "@/component/input";
 
-interface defaultAttrs {
+interface Attrs {
   email?: string;
   password?: string;
 }
 
-const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
-  let user = {
+export const LoginPage: m.ClosureComponent<Attrs> = ({ attrs }) => {
+  let user: User = {
     email: "",
     password: "",
   };
@@ -42,7 +42,7 @@ const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
               {
                 name: "login",
                 onsubmit: function (e: InputEvent) {
-                  UserLogin(e, user).then(() => {
+                  submit(e, user).then(() => {
                     clear();
                   });
                 },
@@ -77,7 +77,7 @@ const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
                         type: "submit",
                         "data-cy": "submit",
                       },
-                      "Submit"
+                      submitText("Submit")
                     ),
                   ]),
                   m("p", { class: "control" }, [
@@ -97,7 +97,7 @@ const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
                     m(
                       m.route.Link,
                       { class: "button is-light", href: "/register" },
-                      " Register "
+                      "Register"
                     ),
                   ]),
                 ]),
@@ -108,5 +108,3 @@ const Page: m.ClosureComponent<defaultAttrs> = ({ attrs }) => {
       ]),
   };
 };
-
-export default Page;

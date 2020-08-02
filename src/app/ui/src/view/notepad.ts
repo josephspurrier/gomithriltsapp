@@ -1,14 +1,25 @@
 import m from "mithril";
-import NoteStore from "@/store/notestore";
-import Note from "@/component/note";
+import * as NoteStore from "@/store/notestore";
+import { Note } from "@/component/note";
 
-interface note {
-  id: string;
-  message: string;
-}
+export const NotepadPage: m.ClosureComponent = () => {
+  let list = [] as NoteStore.Note[];
 
-const Page: m.ClosureComponent = () => {
-  NoteStore.load();
+  NoteStore.load().then((arr: NoteStore.Note[]) => {
+    list = arr;
+  });
+
+  let current: NoteStore.Note = {
+    id: "",
+    message: "",
+  };
+
+  const clear = (): void => {
+    current = {
+      id: "",
+      message: "",
+    };
+  };
 
   return {
     view: () =>
@@ -28,12 +39,18 @@ const Page: m.ClosureComponent = () => {
                     if (e.key !== "Enter") {
                       return;
                     }
-                    NoteStore.submit();
+                    NoteStore.submit(current).then(() => {
+                      // TODO: This could be optimized instead of reloading all.
+                      NoteStore.load().then((arr: NoteStore.Note[]) => {
+                        list = arr;
+                      });
+                      clear();
+                    });
                   },
                   oninput: function (e: { target: HTMLInputElement }) {
-                    NoteStore.current.message = e.target.value;
+                    current.message = e.target.value;
                   },
-                  value: NoteStore.current.message,
+                  value: current.message,
                 }),
               ]),
             ]),
@@ -60,13 +77,18 @@ const Page: m.ClosureComponent = () => {
           ]),
           m("div", [
             m("ul", { id: "listTodo" }, [
-              NoteStore.list.map((n: note) =>
+              list.map((n: NoteStore.Note) =>
                 m(Note, {
                   key: n.id,
                   id: n.id,
                   message: n.message,
                   oninput: function (e: { target: HTMLInputElement }) {
                     n.message = e.target.value;
+                  },
+                  removeNote: function (id: string) {
+                    list = list.filter((i) => {
+                      return i.id !== id;
+                    });
                   },
                 })
               ),
@@ -76,5 +98,3 @@ const Page: m.ClosureComponent = () => {
       ]),
   };
 };
-
-export default Page;

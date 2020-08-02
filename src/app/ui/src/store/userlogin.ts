@@ -1,42 +1,49 @@
 import m from "mithril";
-import Submit from "@/module/submit";
-import Flash from "@/component/flash";
-import CookieStore from "@/module/cookiestore";
+import { start, finish, text } from "@/module/submit";
+import { Flash } from "@/component/flash";
+import { save, Auth } from "@/module/cookiestore";
 
-interface user {
+export interface User {
   email: string;
   password: string;
 }
 
-interface loginResponse {
+interface LoginResponse {
   status: string;
   token: string;
 }
 
-interface errorResponse {
+interface ErrorResponse {
   status: string;
   message: string;
 }
 
-const UserLogin = (e: InputEvent, body: user): Promise<void> => {
-  Submit.start(e);
+export const login = (body: User): Promise<void> => {
+  return m.request({
+    method: "POST",
+    url: "/api/v1/login",
+    body,
+  });
+};
 
-  return m
-    .request({
-      method: "POST",
-      url: "/api/v1/login",
-      body,
-    })
+export const submitText = (s: string): string => {
+  return text(s);
+};
+
+export const submit = (e: InputEvent, u: User): Promise<void> => {
+  start(e);
+
+  return login(u)
     .then((raw: unknown) => {
-      Submit.finish();
+      finish();
 
-      const data = raw as loginResponse;
+      const data = raw as LoginResponse;
       if (data) {
-        const auth = {
+        const auth: Auth = {
           accessToken: data.token,
           loggedIn: true,
         };
-        CookieStore.save(auth);
+        save(auth);
 
         Flash.success("Login successful.");
       } else {
@@ -46,9 +53,8 @@ const UserLogin = (e: InputEvent, body: user): Promise<void> => {
       m.route.set("/");
     })
     .catch((err: XMLHttpRequest) => {
-      Submit.finish();
-      Flash.warning((err.response as errorResponse).message);
+      finish();
+      Flash.warning((err.response as ErrorResponse).message);
+      throw err;
     });
 };
-
-export default UserLogin;

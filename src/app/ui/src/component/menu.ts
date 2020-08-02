@@ -1,9 +1,9 @@
 import m from "mithril";
-import CookieStore from "@/module/cookiestore";
+import { isLoggedIn, clear } from "@/module/cookiestore";
 
-const View = (): m.Component => {
+export const Menu = (): m.Component => {
   const logout = () => {
-    CookieStore.clear();
+    clear();
     m.route.set("/");
   };
 
@@ -60,7 +60,7 @@ const View = (): m.Component => {
                 m("div", { class: "navbar-item has-dropdown is-hoverable" }, [
                   m("a", { class: "navbar-link" }, "Menu"),
                   m("div", { class: "navbar-dropdown is-right" }, [
-                    !CookieStore.isLoggedIn() &&
+                    !isLoggedIn() &&
                       m(
                         m.route.Link,
                         { class: "navbar-item", href: "/login" },
@@ -80,7 +80,7 @@ const View = (): m.Component => {
                       " About "
                     ),
                     m("hr", { class: "navbar-divider" }),
-                    CookieStore.isLoggedIn() &&
+                    isLoggedIn() &&
                       m(
                         "a",
                         {
@@ -101,5 +101,3 @@ const View = (): m.Component => {
       ]),
   };
 };
-
-export default View;

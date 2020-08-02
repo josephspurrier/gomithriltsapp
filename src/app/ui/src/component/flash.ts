@@ -1,10 +1,11 @@
 import m from "mithril";
+import { randId } from "@/module/random";
 
 // Create a flash message class with Bulma.
 // http://bulma.io/documentation/components/message/
 
-// Types of styles available for the flash messages.
-export enum messageType {
+// Types of flash message.
+enum MessageType {
   success = "is-success",
   failed = "is-danger",
   warning = "is-warning",
@@ -14,79 +15,72 @@ export enum messageType {
   dark = "is-dark",
 }
 
-// flashMessage is used by the component and by others calling the component.
-interface flashMessage {
+// Structure of a flash message.
+interface FlashMessage {
   message: string;
-  style: messageType;
+  style: MessageType;
 }
 
-function randId(): string {
-  const min = 10000;
-  const max = 99999999999999;
-  const randomNum = Math.random() * (max - min) + min;
-  return Math.floor(randomNum).toString();
-}
-
-const View = {
-  list: [] as flashMessage[],
+export const Flash = {
+  list: [] as FlashMessage[],
   timeout: 4000, // milliseconds
   prepend: false,
   success: (message: string): void => {
-    View.addFlash(message, messageType.success);
+    Flash.addFlash(message, MessageType.success);
   },
   failed: (message: string): void => {
-    View.addFlash(message, messageType.failed);
+    Flash.addFlash(message, MessageType.failed);
   },
   warning: (message: string): void => {
-    View.addFlash(message, messageType.warning);
+    Flash.addFlash(message, MessageType.warning);
   },
   primary: (message: string): void => {
-    View.addFlash(message, messageType.primary);
+    Flash.addFlash(message, MessageType.primary);
   },
   link: (message: string): void => {
-    View.addFlash(message, messageType.link);
+    Flash.addFlash(message, MessageType.link);
   },
   info: (message: string): void => {
-    View.addFlash(message, messageType.info);
+    Flash.addFlash(message, MessageType.info);
   },
   dark: (message: string): void => {
-    View.addFlash(message, messageType.dark);
+    Flash.addFlash(message, MessageType.dark);
   },
-  addFlash: (message: string, style: messageType): void => {
+  addFlash: (message: string, style: MessageType): void => {
     // Don't show a message if zero.
-    if (View.timeout === 0) {
+    if (Flash.timeout === 0) {
       return;
     }
 
-    const msg = {
+    const msg: FlashMessage = {
       message: message,
       style: style,
     };
 
     //Check if the messages should stack in reverse order.
-    if (View.prepend === true) {
-      View.list.unshift(msg);
+    if (Flash.prepend === true) {
+      Flash.list.unshift(msg);
     } else {
-      View.list.push(msg);
+      Flash.list.push(msg);
     }
 
     m.redraw();
 
     // Show forever if -1.
-    if (View.timeout > 0) {
+    if (Flash.timeout > 0) {
       setTimeout(() => {
-        View.removeFlash(msg);
+        Flash.removeFlash(msg);
         m.redraw();
-      }, View.timeout);
+      }, Flash.timeout);
     }
   },
-  removeFlash: (i: flashMessage): void => {
-    View.list = View.list.filter((v) => {
+  removeFlash: (i: FlashMessage): void => {
+    Flash.list = Flash.list.filter((v) => {
       return v !== i;
     });
   },
   clear: (): void => {
-    View.list = [];
+    Flash.list = [];
   },
   view: (): m.Vnode =>
     m(
@@ -101,13 +95,13 @@ const View = {
         },
       },
       [
-        View.list.map((i) =>
+        Flash.list.map((i) =>
           m("div", { class: `notification ${i.style}`, key: randId() }, [
             i.message,
             m("button", {
               class: "delete",
               onclick: function () {
-                View.removeFlash(i);
+                Flash.removeFlash(i);
               },
             }),
           ])
@@ -115,5 +109,3 @@ const View = {
       ]
     ),
 };
-
-export default View;

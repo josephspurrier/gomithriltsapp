@@ -1,8 +1,8 @@
 import m from "mithril";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
-import Note from "./note";
-import Flash from "@/component/flash";
+import { Note } from "./note";
+import { Flash } from "@/component/flash";
 import { rest } from "msw";
 import { worker } from "@/mock/browser";
 
@@ -12,7 +12,7 @@ export default {
   decorators: [withKnobs, withA11y],
 };
 
-export const note = (): m.Component => ({
+export const noteView = (): m.Component => ({
   oninit: () => {
     const shouldFail = boolean("Fail", false);
 
@@ -63,8 +63,15 @@ export const note = (): m.Component => ({
           oninput: function (): void {
             console.log("changed");
           },
+          removeNote: function (): void {
+            console.log("removed");
+          },
         }),
       ]),
       m(Flash),
     ]),
 });
+
+noteView.story = {
+  name: "Note",
+};
