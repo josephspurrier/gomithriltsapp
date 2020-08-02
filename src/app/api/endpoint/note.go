@@ -255,8 +255,7 @@ func (p NoteEndpoint) Destroy(w http.ResponseWriter, r *http.Request) (int, erro
 	}
 
 	// Get a the note for the user.
-	note := p.Store.Note.New()
-	affected, err := p.Store.Note.DeleteOneByIDAndUser(&note, req.NoteID, userID)
+	affected, err := p.Store.Note.DeleteOneByIDAndUser(req.NoteID, userID)
 	if err != nil {
 		return http.StatusInternalServerError, err
 	} else if affected == 0 {
