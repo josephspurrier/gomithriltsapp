@@ -21,34 +21,34 @@ interface FlashMessage {
   style: MessageType;
 }
 
-const flash = {
+const Flash = {
   list: [] as FlashMessage[],
   timeout: 4000, // milliseconds
   prepend: false,
   success: (message: string): void => {
-    flash.addFlash(message, MessageType.success);
+    Flash.addFlash(message, MessageType.success);
   },
   failed: (message: string): void => {
-    flash.addFlash(message, MessageType.failed);
+    Flash.addFlash(message, MessageType.failed);
   },
   warning: (message: string): void => {
-    flash.addFlash(message, MessageType.warning);
+    Flash.addFlash(message, MessageType.warning);
   },
   primary: (message: string): void => {
-    flash.addFlash(message, MessageType.primary);
+    Flash.addFlash(message, MessageType.primary);
   },
   link: (message: string): void => {
-    flash.addFlash(message, MessageType.link);
+    Flash.addFlash(message, MessageType.link);
   },
   info: (message: string): void => {
-    flash.addFlash(message, MessageType.info);
+    Flash.addFlash(message, MessageType.info);
   },
   dark: (message: string): void => {
-    flash.addFlash(message, MessageType.dark);
+    Flash.addFlash(message, MessageType.dark);
   },
   addFlash: (message: string, style: MessageType): void => {
     // Don't show a message if zero.
-    if (flash.timeout === 0) {
+    if (Flash.timeout === 0) {
       return;
     }
 
@@ -58,29 +58,29 @@ const flash = {
     };
 
     //Check if the messages should stack in reverse order.
-    if (flash.prepend === true) {
-      flash.list.unshift(msg);
+    if (Flash.prepend === true) {
+      Flash.list.unshift(msg);
     } else {
-      flash.list.push(msg);
+      Flash.list.push(msg);
     }
 
     m.redraw();
 
     // Show forever if -1.
-    if (flash.timeout > 0) {
+    if (Flash.timeout > 0) {
       setTimeout(() => {
-        flash.removeFlash(msg);
+        Flash.removeFlash(msg);
         m.redraw();
-      }, flash.timeout);
+      }, Flash.timeout);
     }
   },
   removeFlash: (i: FlashMessage): void => {
-    flash.list = flash.list.filter((v) => {
+    Flash.list = Flash.list.filter((v) => {
       return v !== i;
     });
   },
   clear: (): void => {
-    flash.list = [];
+    Flash.list = [];
   },
   view: (): m.Vnode =>
     m(
@@ -95,13 +95,13 @@ const flash = {
         },
       },
       [
-        flash.list.map((i) =>
+        Flash.list.map((i) =>
           m("div", { class: `notification ${i.style}`, key: randId() }, [
             i.message,
             m("button", {
               class: "delete",
               onclick: function () {
-                flash.removeFlash(i);
+                Flash.removeFlash(i);
               },
             }),
           ])
@@ -110,4 +110,4 @@ const flash = {
     ),
 };
 
-export default flash;
+export default Flash;
