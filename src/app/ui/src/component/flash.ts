@@ -21,7 +21,7 @@ interface FlashMessage {
   style: MessageType;
 }
 
-const Flash = {
+export const Flash = {
   list: [] as FlashMessage[],
   timeout: 4000, // milliseconds
   prepend: false,
@@ -109,5 +109,3 @@ const Flash = {
       ]
     ),
 };
-
-export default Flash;

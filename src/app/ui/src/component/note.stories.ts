@@ -2,7 +2,7 @@ import m from "mithril";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
 import { Note } from "./note";
-import Flash from "@/component/flash";
+import { Flash } from "@/component/flash";
 import { rest } from "msw";
 import { worker } from "@/mock/browser";
 

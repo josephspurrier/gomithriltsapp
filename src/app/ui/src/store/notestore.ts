@@ -1,5 +1,5 @@
 import m from "mithril";
-import Flash from "@/component/flash";
+import { Flash } from "@/component/flash";
 import { bearerToken } from "@/module/cookiestore";
 
 export interface Note {

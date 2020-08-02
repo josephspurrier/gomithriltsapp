@@ -1,6 +1,6 @@
 import m from "mithril";
 import { start, finish, text } from "@/module/submit";
-import Flash from "@/component/flash";
+import { Flash } from "@/component/flash";
 
 export interface User {
   first_name: string;

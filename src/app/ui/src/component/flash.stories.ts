@@ -8,7 +8,7 @@ import {
   boolean,
 } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
-import Flash from "@/component/flash";
+import { Flash } from "@/component/flash";
 
 export default {
   title: "Component/Flash",
