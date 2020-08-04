@@ -1,5 +1,5 @@
 import m from "mithril";
-import { Flash } from "@/component/flash";
+import { showFlash, MessageType } from "@/component/flash";
 import { bearerToken } from "@/module/cookiestore";
 
 export interface Note {
@@ -14,10 +14,10 @@ interface NoteResponse {
 export const submit = (n: Note): Promise<void> => {
   return create(n)
     .then(() => {
-      Flash.success("Note created.");
+      showFlash("Note created.", MessageType.success);
     })
     .catch((err) => {
-      Flash.warning(err.response.message);
+      showFlash(err.response.message, MessageType.warning);
       throw err;
     });
 };
@@ -47,14 +47,17 @@ export const load = (): Promise<Note[]> => {
       if (result) {
         return result.notes;
       }
-      Flash.failed("Data returned is not valid.");
+      showFlash("Data returned is not valid.", MessageType.failed);
       return [] as Note[];
     });
 };
 
 export const runUpdate = (id: string, value: string): void => {
   update(id, value).catch((e) => {
-    Flash.warning("Could not update note: " + e.response.message);
+    showFlash(
+      "Could not update note: " + e.response.message,
+      MessageType.warning
+    );
   });
 };
 
@@ -72,10 +75,13 @@ export const update = (id: string, text: string): Promise<void> => {
 export const runDelete = (id: string): Promise<void> => {
   return deleteNote(id)
     .then(() => {
-      Flash.success("Note deleted.");
+      showFlash("Note deleted.", MessageType.success);
     })
     .catch((err) => {
-      Flash.warning("Could not delete: " + err.response.message);
+      showFlash(
+        "Could not delete: " + err.response.message,
+        MessageType.warning
+      );
     });
 };
 

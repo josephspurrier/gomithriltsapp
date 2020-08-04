@@ -8,7 +8,14 @@ import {
   boolean,
 } from "@storybook/addon-knobs";
 import { withA11y } from "@storybook/addon-a11y";
-import { Flash } from "@/component/flash";
+import {
+  Flash,
+  showFlash,
+  setFlashTimeout,
+  setPrepend,
+  clearFlash,
+  MessageType,
+} from "@/component/flash";
 
 export default {
   title: "Component/Flash",
@@ -18,105 +25,94 @@ export default {
 
 export const success = (): m.Component => ({
   oninit: () => {
-    Flash.timeout = -1;
-    Flash.success(text("Text", "This is a success message."));
+    setFlashTimeout(-1);
+    showFlash(text("Text", "This is a success message."), MessageType.success);
   },
   onremove: () => {
-    Flash.clear();
+    clearFlash();
   },
   view: () => m(Flash),
 });
 
 export const failed = (): m.Component => ({
   oninit: () => {
-    Flash.timeout = -1;
-    Flash.failed(text("Text", "This is a failed message."));
+    setFlashTimeout(-1);
+    showFlash(text("Text", "This is a failed message."), MessageType.failed);
   },
   onremove: () => {
-    Flash.clear();
+    clearFlash();
   },
   view: () => m(Flash),
 });
 
 export const warning = (): m.Component => ({
   oninit: () => {
-    Flash.timeout = -1;
-    Flash.warning(text("Text", "This is a warning message."));
+    setFlashTimeout(-1);
+    showFlash(text("Text", "This is a warning message."), MessageType.warning);
   },
   onremove: () => {
-    Flash.clear();
+    clearFlash();
   },
   view: () => m(Flash),
 });
 
 export const primary = (): m.Component => ({
   oninit: () => {
-    Flash.timeout = -1;
-    Flash.primary(text("Text", "This is a primary message."));
+    setFlashTimeout(-1);
+    showFlash(text("Text", "This is a primary message."), MessageType.primary);
   },
   onremove: () => {
-    Flash.clear();
+    clearFlash();
   },
   view: () => m(Flash),
 });
 
 export const link = (): m.Component => ({
   oninit: () => {
-    Flash.timeout = -1;
-    Flash.link(text("Text", "This is a link message."));
+    setFlashTimeout(-1);
+    showFlash(text("Text", "This is a link message."), MessageType.link);
   },
   onremove: () => {
-    Flash.clear();
+    clearFlash();
   },
   view: () => m(Flash),
 });
 
 export const info = (): m.Component => ({
   oninit: () => {
-    Flash.timeout = -1;
-    Flash.info(text("Text", "This is a info message."));
+    setFlashTimeout(-1);
+    showFlash(text("Text", "This is a info message."), MessageType.info);
   },
   onremove: () => {
-    Flash.clear();
+    clearFlash();
   },
   view: () => m(Flash),
 });
 
 export const dark = (): m.Component => ({
   oninit: () => {
-    Flash.timeout = -1;
-    Flash.dark(text("Text", "This is a dark message."));
+    setFlashTimeout(-1);
+    showFlash(text("Text", "This is a dark message."), MessageType.dark);
   },
   onremove: () => {
-    Flash.clear();
+    clearFlash();
   },
   view: () => m(Flash),
 });
 
 export const action = (): m.Component => ({
   oninit: () => {
-    Flash.timeout = number("Timeout (milliseconds)", 2000);
-    Flash.prepend = boolean("Prepend", false);
-    const s = select(
-      "Type",
-      {
-        success: "success",
-        failed: "failed",
-        warning: "warning",
-        primary: "primary",
-        link: "link",
-        info: "info",
-        dark: "dark",
-      },
-      "success"
-    );
-    Flash[s](text("Text", "This is a test message."));
+    console.log("yeah");
+    setFlashTimeout(number("Timeout (milliseconds)", 2000));
+    setPrepend(boolean("Prepend", false));
+    const s = select("Type", MessageType, MessageType.success);
+    showFlash(text("Text", "This is a test message."), s);
     button("Show Message", () => {
       console.log("Show message");
     });
   },
   onremove: () => {
-    Flash.clear();
+    clearFlash();
   },
   view: () => m(Flash),
 });
