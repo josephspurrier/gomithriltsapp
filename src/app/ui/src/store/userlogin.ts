@@ -1,6 +1,6 @@
 import m from "mithril";
 import { start, finish, text } from "@/module/submit";
-import { Flash } from "@/component/flash";
+import { showFlash, MessageType } from "@/component/flash";
 import { save, Auth } from "@/module/cookiestore";
 
 export interface User {
@@ -45,16 +45,16 @@ export const submit = (e: InputEvent, u: User): Promise<void> => {
         };
         save(auth);
 
-        Flash.success("Login successful.");
+        showFlash("Login successful.", MessageType.success);
       } else {
-        Flash.failed("Data returned is not valid.");
+        showFlash("Data returned is not valid.", MessageType.failed);
       }
 
       m.route.set("/");
     })
     .catch((err: XMLHttpRequest) => {
       finish();
-      Flash.warning((err.response as ErrorResponse).message);
+      showFlash((err.response as ErrorResponse).message, MessageType.warning);
       throw err;
     });
 };

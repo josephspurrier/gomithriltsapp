@@ -1,6 +1,6 @@
 import m from "mithril";
 import { start, finish, text } from "@/module/submit";
-import { Flash } from "@/component/flash";
+import { showFlash, MessageType } from "@/component/flash";
 
 export interface User {
   first_name: string;
@@ -28,12 +28,12 @@ export const submit = (e: InputEvent, u: User): Promise<void> => {
     .then(() => {
       finish();
 
-      Flash.success("User registered.");
+      showFlash("User registered.", MessageType.success);
       m.route.set("/login");
     })
     .catch((err: XMLHttpRequest) => {
       finish();
-      Flash.warning(err.response.message);
+      showFlash(err.response.message, MessageType.warning);
       throw err;
     });
 };
