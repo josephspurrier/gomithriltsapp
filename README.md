@@ -145,5 +145,5 @@ This is one repository of a few that demonstrate with different front-end framew
 - [Mithril (TypeScript) and Go](https://github.com/josephspurrier/gomithriltsapp)
 - [React (TypeScript) and Go](https://github.com/josephspurrier/goreactapp)
 
-You can reference some off the documention here, though it's specific to Mithril:
+You can reference some off the documention here, though it's specific to the non-TypeScript Mithril repository:
 https://josephspurrier.github.io/gomithrilapp/
