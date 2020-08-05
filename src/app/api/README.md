@@ -1,4 +1,4 @@
-# gomithrilapp
+# gomithriltsapp
 
 > Sample notepad application in Mithril and Go.
 

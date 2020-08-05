@@ -16,7 +16,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: "./index.html",
-      title: "gomithrilapp",
+      title: "gomithriltsapp",
     }),
     new MiniCssExtractPlugin({
       filename: "static/[name].[contenthash].css",

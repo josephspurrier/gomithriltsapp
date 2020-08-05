@@ -32,7 +32,7 @@ func LoadDatabase(ml logger.ILog) *database.DBW {
 		Hostname:  "127.0.0.1",
 		Username:  "root",
 		Password:  password,
-		Name:      "gomithrilapptest" + unique,
+		Name:      "gomithriltsapptest" + unique,
 		Port:      3306,
 		Parameter: "parseTime=true&allowNativePasswords=true&collation=utf8mb4_unicode_ci&multiStatements=true",
 	}

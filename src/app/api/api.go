@@ -1,4 +1,4 @@
-// Package api gomithrilapp API
+// Package api gomithriltsapp API
 //
 // This is the API for the sample notepad application in Mithril and Go.
 //

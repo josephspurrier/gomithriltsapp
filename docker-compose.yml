@@ -22,6 +22,6 @@ services:
       - "3306:3306"
   app:
     <<: *service-template
-    image: "gomithrilapp:${APP_VERSION}"
+    image: "gomithriltsapp:${APP_VERSION}"
     ports:
       - "80:80"

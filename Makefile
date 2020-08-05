@@ -18,7 +18,7 @@
 include ${GOPATH}/.env
 
 # Set local environment variables.
-MYSQL_NAME=gomithrilapp_db_1
+MYSQL_NAME=gomithriltsapp_db_1
 GITHUB_USERNAME=josephspurrier
 
 .PHONY: docker-build

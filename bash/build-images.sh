@@ -7,6 +7,6 @@ source .env
 
 # Build the API image.
 cd $CURDIR/src/app
-docker build -t gomithrilapp:$APP_VERSION .
+docker build -t gomithriltsapp:$APP_VERSION .
 
 cd $CURDIR
