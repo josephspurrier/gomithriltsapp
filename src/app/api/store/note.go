@@ -3,7 +3,6 @@ package store
 import (
 	"time"
 
-	"app/api"
 	"app/api/pkg/securegen"
 )
 
@@ -138,8 +137,7 @@ func (x *NoteStore) FindOneByIDAndUser(dest *Note, ID string, userID string) (ex
 }
 
 // DeleteOneByIDAndUser removes one item from a user.
-func (x *NoteStore) DeleteOneByIDAndUser(dest api.IRecord, ID string,
-	userID string) (affected int, err error) {
+func (x *NoteStore) DeleteOneByIDAndUser(ID string, userID string) (affected int, err error) {
 	if x.mock != nil && x.mock.Enabled() {
 		return x.mock.Int(), x.mock.Error()
 	}

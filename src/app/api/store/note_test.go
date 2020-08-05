@@ -57,12 +57,12 @@ func TestNote(t *testing.T) {
 	assert.Equal(t, false, exists)
 
 	item = s.New()
-	affected, err = s.DeleteOneByIDAndUser(&item, ID, userID)
+	affected, err = s.DeleteOneByIDAndUser(ID, userID)
 	assert.NoError(t, err)
 	assert.Equal(t, 1, affected)
 
 	item = s.New()
-	affected, err = s.DeleteOneByIDAndUser(&item, ID, userID)
+	affected, err = s.DeleteOneByIDAndUser(ID, userID)
 	assert.NoError(t, err)
 	assert.Equal(t, 0, affected)
 }
@@ -102,7 +102,7 @@ func TestNoteMock(t *testing.T) {
 	assert.Equal(t, true, exists)
 
 	c.Test.Mock.Add("NoteStore.DeleteOneByIDAndUser", 25, e)
-	affected, err = s.DeleteOneByIDAndUser(&item, "bad ID", userID)
+	affected, err = s.DeleteOneByIDAndUser("bad ID", userID)
 	assert.Equal(t, e, err)
 	assert.Equal(t, 25, affected)
 
