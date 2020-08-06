@@ -36,7 +36,7 @@ export const LoginPage: m.ClosureComponent<Attrs> = ({ attrs }) => {
               "Enter your login information below."
             ),
           ]),
-          m("div", { class: "container", style: { "margin-top": "1em" } }, [
+          m("div", { class: "container mt-4" }, [
             m(
               "form",
               {

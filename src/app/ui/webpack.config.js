@@ -21,13 +21,12 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "static/[name].[contenthash].css",
     }),
-    new CopyWebpackPlugin(
-      [
+    new CopyWebpackPlugin({
+      patterns: [
         { from: "./static/healthcheck.html", to: "static/" },
         { from: "./static/swagger.json", to: "static/" },
       ],
-      { copyUnmodified: true }
-    ),
+    }),
   ],
   resolve: {
     extensions: [".tsx", ".ts", ".js"],

@@ -16,7 +16,7 @@ interface State {
 export const Note = (): m.Component<Attrs, State> => {
   return {
     view: ({ attrs, state }) =>
-      m("li", { style: { "margin-top": "12px" } }, [
+      m("li", { class: "mt-2" }, [
         m("div", { class: "box" }, [
           m("div", { class: "content" }, [
             m("div", { class: "editable" }, [

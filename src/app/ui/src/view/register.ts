@@ -39,7 +39,7 @@ export const RegisterPage: m.ClosureComponent<Attrs> = ({ attrs }) => {
             m("h1", { class: "title" }, "Register"),
             m("h2", { class: "subtitle" }, "Enter your information below."),
           ]),
-          m("div", { class: "container", style: { "margin-top": "1em" } }, [
+          m("div", { class: "container mt-4" }, [
             m(
               "form",
               {
